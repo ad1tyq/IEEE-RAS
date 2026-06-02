@@ -13,9 +13,9 @@ import { motion } from "framer-motion";
  * Defines the main navigation structure with anchor links
  */
 const navItems = [
-    { name: 'About', href: '#about' },
+    { name: 'About', href: '/#about' },
     { name: 'Events', href: '/events' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '/#contact' }
 ];
 
 export default function Navbar() {
