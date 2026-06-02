@@ -37,7 +37,7 @@ import type { Metadata, Viewport } from 'next'
  * - Variable font weights for flexibility
  * - Display swap for better loading experience
  */
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
@@ -62,23 +62,23 @@ export const metadata: Metadata = {
   // ========================================
   // BASE URL CONFIGURATION
   // ========================================
-  
+
   /**
    * Base URL for resolving relative URLs in metadata
    * Required for proper Open Graph and Twitter image resolution
    */
   metadataBase: new URL('https://ieee-ras-ruby.vercel.app'),
-  
+
   // ========================================
   // PRIMARY SEO METADATA
   // ========================================
-  
+
   // Main page title - appears in browser tab and search results
   title: 'IEEE RAS MUJ | Robotics & Automation Society',
-  
+
   // Meta description - appears in search engine results
   description: 'IEEE Robotics and Automation Society at Manipal University Jaipur. Advancing robotics and automation through research, innovation, and collaborative learning. Join us for workshops, hackathons, and cutting-edge projects.',
-  
+
   // SEO keywords for search engine optimization
   keywords: [
     'IEEE RAS',
@@ -101,16 +101,16 @@ export const metadata: Metadata = {
     'Student Organization',
     'Technical Society'
   ],
-  
+
   // Author information
   authors: [{ name: 'IEEE RAS MUJ Development Team' }],
-  
+
   // Content creator
   creator: 'IEEE RAS MUJ',
-  
+
   // Publisher information
   publisher: 'IEEE Robotics and Automation Society - Manipal University Jaipur',
-  
+
   // Robots directive for search engines
   robots: {
     index: true,        // Allow indexing
@@ -127,23 +127,23 @@ export const metadata: Metadata = {
   // ========================================
   // OPEN GRAPH METADATA (Facebook, LinkedIn, etc.)
   // ========================================
-  
+
   openGraph: {
     // Content type
     type: 'website',
-    
+
     // Canonical URL
     url: 'https://ieeeras-muj.org',
-    
+
     // Site name
     siteName: 'IEEE RAS MUJ',
-    
+
     // Page title for social sharing
     title: 'IEEE RAS MUJ | Robotics & Automation Society',
-    
+
     // Description for social sharing
     description: 'IEEE Robotics and Automation Society at Manipal University Jaipur. Advancing robotics and automation through research, innovation, and collaborative learning.',
-    
+
     // Social sharing image
     images: [
       {
@@ -154,7 +154,7 @@ export const metadata: Metadata = {
         type: 'image/jpeg',
       },
     ],
-    
+
     // Locale information
     locale: 'en_US',
   },
@@ -162,21 +162,21 @@ export const metadata: Metadata = {
   // ========================================
   // TWITTER CARD METADATA
   // ========================================
-  
+
   twitter: {
     // Card type for optimal display
     card: 'summary_large_image',
-    
+
     // Twitter handle (if available)
     // site: '@ieeeras_muj',
     // creator: '@ieeeras_muj',
-    
+
     // Title for Twitter sharing
     title: 'IEEE RAS MUJ | Robotics & Automation Society',
-    
+
     // Description for Twitter sharing
     description: 'IEEE Robotics and Automation Society at Manipal University Jaipur. Join us for robotics research, automation projects, and innovative hackathons.',
-    
+
     // Twitter sharing image
     images: ['/images/logos/IEEE-RAS-Banner.jpg'],
   },
@@ -184,31 +184,31 @@ export const metadata: Metadata = {
   // ========================================
   // ADDITIONAL METADATA
   // ========================================
-  
+
   // Favicon configuration
   icons: {
     apple: '/images/logos/ieee-ras-logo.png',
   },
-  
+
   // Verification for search engines (add when available)
   // verification: {
   //   google: 'your-google-verification-code',
   //   yandex: 'your-yandex-verification-code',
   //   yahoo: 'your-yahoo-verification-code',
   // },
-  
+
   // Category for app stores
   category: 'education',
-  
+
   // Classification
   classification: 'Educational Institution, Technology Organization',
-  
+
   // Application name
   applicationName: 'IEEE RAS MUJ Website',
-  
+
   // Referrer policy
   referrer: 'origin-when-cross-origin',
-  
+
   // Manifest file for PWA (if implemented)
   // manifest: '/manifest.json',
 }
@@ -235,13 +235,13 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  
+
   // Theme color for mobile browsers and PWA
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
-  
+
   // Color scheme preference
   colorScheme: 'dark light',
 }
@@ -265,8 +265,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html 
-      lang="en" 
+    <html
+      lang="en"
       className={inter.variable}
       suppressHydrationWarning={true}
     >
@@ -277,14 +277,14 @@ export default function RootLayout({
       */}
       <head>
         {/* Additional head elements can be added here if needed */}
-        
+
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://script.google.com" />
-        
+
         {/* Structured data for search engines */}
         <script
           type="application/ld+json"
@@ -318,7 +318,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      
+
       {/* 
         HTML Body Section
         - Contains the main application content
@@ -334,8 +334,8 @@ export default function RootLayout({
           - All pages and components are rendered here
           - Wrapped by this root layout structure
         */}
-          {children}
-        
+        {children}
+
         {/* 
           Analytics Scripts
           - Add Google Analytics, Google Tag Manager, or other analytics here
