@@ -46,6 +46,8 @@ Code Quality: ESLint, Prettier, Husky (Git hooks)-->
 Building
 ```
 npm run build
+```
+```
 npm run start
 ```
 
