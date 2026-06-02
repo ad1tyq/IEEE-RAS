@@ -23,10 +23,6 @@
 // React hooks for state management and lifecycle
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { allEvents } from 'data/eventsData';
-import WingsAndWiresPreview from '@/components/WingsAndWires/WingsAndWiresPreview';
-import CookCrackCapturePreview from '@/components/CookCrackCapture/CookCrackCapturePreview';
-import TechnoVision3Preview from '@/components/TechnoVision3/TechnoVision3Preview';
 // Next.js components for routing and image optimization
 import Link from 'next/link';
 import Image from 'next/image';
@@ -35,8 +31,8 @@ import Image from 'next/image';
 import { ChevronRight, Calendar, Users, Award, Mail, MapPin } from 'lucide-react';
 
 // Custom components
-import PixelPalettesPreview from '@/components/PixelPalettesPreview';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 /**
  * HomePage Component
@@ -630,135 +626,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========================================
-                EVENTS & ACTIVITIES SECTION
-                ======================================== */}
 
-      {/* 
-              Events & Activities Section
-              - Three-card layout showcasing different event types
-              - Pixel Palettes hackathon as featured event
-              - Tech Workshops and Competitions as upcoming activities
-              - Modern card design with gradient icons and hover effects
-            */}
-      <section id="events" className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-6">
-
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            {/* Section Title */}
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-purple-400 to-red-400 bg-clip-text text-transparent">
-                Events & Activities
-              </span>
-            </h2>
-            {/* Decorative underline */}
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-red-500 mx-auto mb-8"></div>
-          </motion.div>
-
-          {/* Events Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            {/* Scheduled Events */}
-            {/* Pixel Palettes Card */}
-            {(allEvents).map((event) => (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="group"
-                key={event.id}
-              >
-                <motion.div
-                  className="glass-card p-8 rounded-2xl backdrop-blur-md bg-white/5 border border-white/10 hover:bg-white/8 transition-all duration-300 h-full flex flex-col"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Pixel Palettes Animation */}
-                  {event.title === "Pixel Palettes" ? (
-                    <div className="flex justify-center mb-6">
-                      <PixelPalettesPreview
-                        size={80}
-                        className="opacity-90"
-                        speed={1}
-                      />
-                    </div>
-                  ) : event.title === "Wings And Wires" ? (
-                    <div className="flex justify-center mb-6">
-                      <WingsAndWiresPreview
-                        size={80}
-                        className="opacity-90"
-                        speed={1}
-                      />
-                    </div>
-                  ) : event.title === "Cook Crack Capture" ? (
-                    <div className="flex justify-center mb-6">
-                      <CookCrackCapturePreview
-                        size={80}
-                        className="opacity-90"
-                        speed={1}
-                      />
-                    </div>
-                  ) : event.title === "Techno Vision 3.0" ? (
-                    <div className="flex justify-center mb-6">
-                      <TechnoVision3Preview
-                        size={80}
-                        className="opacity-90"
-                        speed={1}
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center mb-6">
-                      <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <Users size={32} className="text-white" />
-                      </div>
-                    </div>
-                  )}
-
-
-                  {/* Event Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 text-center">{event.title}</h3>
-
-
-                  {/* Event Description */}
-                  <p className="text-gray-300 text-center mb-8 flex-grow leading-relaxed">
-                    {event.description}
-                  </p>
-
-                  {/* Action Button */}
-                  <div className="text-center">
-                    {event.status === "scheduled" ? (
-                      <Link
-                        href={event.href}
-                        className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-red-600 rounded-full font-medium text-white transition-all duration-300 hover:from-purple-700 hover:to-red-700 hover:scale-105"
-                      >
-                        <span>Explore Event</span>
-                        <ChevronRight size={16} />
-                      </Link>
-                    ) : (
-                      <button
-                        className="inline-flex items-center space-x-2 px-6 py-3 border-2 border-purple-500/50 rounded-full font-medium text-purple-400 transition-all duration-300 hover:border-purple-400 hover:text-purple-300 cursor-not-allowed"
-                        disabled
-                      >
-                        <span>Coming Soon</span>
-                      </button>
-                    )}
-
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
-
-          </div>
-        </div>
-      </section>
 
       {/* ========================================
                 SPONSOR SECTION
@@ -1090,44 +958,7 @@ export default function HomePage() {
       {/* ========================================
                 FOOTER SECTION
                 ======================================== */}
-
-      {/* 
-              Footer Section
-              - Simple footer with organization branding
-              - Copyright information and legal notices
-              - IEEE RAS logo and organization details
-              - Responsive layout for mobile and desktop
-            */}
-      <footer className="py-12 border-t border-gray-800/50 bg-black/80">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-
-            {/* Left Side - Organization Branding */}
-            <div className="flex items-center space-x-4 mb-4 md:mb-0">
-              {/* Footer Logo */}
-              <Image
-                src="/images/logos/logo.png"
-                alt="IEEE RAS Logo"
-                width={48}
-                height={48}
-                className="object-contain"
-              />
-              {/* Organization Details */}
-              <div>
-                <h3 className="font-semibold text-white">IEEE RAS MUJ</h3>
-                <p className="text-gray-400 text-sm">Robotics & Automation Society</p>
-              </div>
-            </div>
-
-            {/* Right Side - Copyright Information */}
-            <div className="text-center md:text-right">
-              <div className="text-gray-400 text-sm md:text-right">
-                © 2026 IEEE RAS Manipal University Jaipur. All rights reserved.
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 } 

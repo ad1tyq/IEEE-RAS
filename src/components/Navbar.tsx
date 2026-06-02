@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
  */
 const navItems = [
     { name: 'About', href: '#about' },
-    { name: 'Events', href: '#events' },
+    { name: 'Events', href: '/events' },
     { name: 'Contact', href: '#contact' }
 ];
 
