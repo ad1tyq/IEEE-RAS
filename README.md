@@ -25,7 +25,14 @@ Install dependencies:
 npm install
 ```
 
-Environment Setup: Create a .env file in the root directory and configure your DATABASE_URL (PostgreSQL) and JWT_SECRET.
+Environment Setup:
+
+Create a .env.local file in the root directory and configure:
+```
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
 
 ### Development:
 Start the development server:
