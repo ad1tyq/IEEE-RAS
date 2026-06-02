@@ -147,11 +147,11 @@ export const metadata: Metadata = {
     // Social sharing image
     images: [
       {
-        url: '/images/logos/ieee-ras-logo.png',
+        url: '/images/logos/IEEE-RAS-Banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'IEEE RAS MUJ Logo',
-        type: 'image/png',
+        alt: 'IEEE RAS MUJ Banner',
+        type: 'image/jpeg',
       },
     ],
     
@@ -178,7 +178,7 @@ export const metadata: Metadata = {
     description: 'IEEE Robotics and Automation Society at Manipal University Jaipur. Join us for robotics research, automation projects, and innovative hackathons.',
     
     // Twitter sharing image
-    images: ['/images/logos/ieee-ras-logo.png'],
+    images: ['/images/logos/IEEE-RAS-Banner.jpg'],
   },
 
   // ========================================
@@ -187,8 +187,6 @@ export const metadata: Metadata = {
   
   // Favicon configuration
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
     apple: '/images/logos/ieee-ras-logo.png',
   },
   
