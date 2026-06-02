@@ -57,6 +57,11 @@ Docker: For containerized local environments:docker build -t event-platform .
 docker run -p 3000:3000 event-platform-->
 
 ### Contributing:
-We welcome contributions from club members. Please ensure you run npm run lint before submitting a Pull Request.
+We welcome contributions from club members.
+Please ensure you run 
+```
+npm run lint
+```
+before submitting a Pull Request.
 
 Made by IEEE RAS MUJ 🚀
