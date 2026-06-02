@@ -527,6 +527,211 @@ export default function Home() {
               </div>
             </section>
 
+            {/* Winners Section - Top 3 Winners */}
+            <section id="winners" className="py-24 bg-gradient-to-b from-green-900/10 to-black">
+              <div className="max-w-6xl mx-auto px-6">
+                {/* Section Header */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center mb-16"
+                >
+                  <h2 className="font-pixel text-3xl md:text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-green-500 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]">WINNERS</h2>
+                  <div className="w-16 h-0.5 bg-gradient-to-r from-green-600 to-sky-500 mx-auto mb-4"></div>
+                  <p className="font-mono-pixel text-lg text-gray-400 max-w-2xl mx-auto">
+                    Congratulations to the top 3 teams who dominated Cook Crack Capture CTF!
+                  </p>
+                </motion.div>
+
+                {/* Winners Podium - Top 3 teams with special styling */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                  {[
+                    { 
+                      name: 'Local Host', 
+                      position: 1, 
+                      prize: '1st Place',
+                      emoji: '🥇',
+                      colors: {
+                        gradient: 'from-yellow-400 to-yellow-600',
+                        border: 'border-yellow-400/40',
+                        glow: 'rgba(234, 179, 8, 0.8)',
+                        text: 'text-yellow-400'
+                      }
+                    },
+                    { 
+                      name: 'VanarSena', 
+                      position: 2, 
+                      prize: '2nd Place',
+                      emoji: '🥈',
+                      colors: {
+                        gradient: 'from-slate-200 to-slate-400',
+                        border: 'border-slate-300/50',
+                        glow: 'rgba(203, 213, 225, 0.8)',
+                        text: 'text-slate-200'
+                      }
+                    },
+                    { 
+                      name: 'Parv', 
+                      position: 3, 
+                      prize: '3rd Place',
+                      emoji: '🥉',
+                      colors: {
+                        gradient: 'from-amber-600 to-amber-800',
+                        border: 'border-amber-500/50',
+                        glow: 'rgba(217, 119, 6, 0.8)',
+                        text: 'text-amber-500'
+                      }
+                    }
+                  ].map((winner, index) => (
+                    <motion.div
+                      key={winner.position}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: index * 0.2 }}
+                      animate={{
+                        y: [0, -8, 0],
+                        transition: {
+                          duration: 3 + index * 0.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }
+                      }}
+                      whileHover={{ 
+                        scale: 1.05,
+                        rotateY: 5,
+                        y: -12,
+                        transition: { duration: 0.3 }
+                      }}
+                      className="glass modern-card rounded-xl p-8 text-center relative overflow-hidden group"
+                      style={{
+                        background: winner.position === 1 
+                          ? 'rgba(234, 179, 8, 0.1)' 
+                          : 'rgba(0, 0, 0, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        border: `2px solid ${winner.colors.glow.replace('0.8', '0.4')}`,
+                        boxShadow: `0 0 40px ${winner.colors.glow.replace('0.8', '0.6')}, 0 0 80px ${winner.colors.glow.replace('0.8', '0.4')}, 0 0 120px ${winner.colors.glow.replace('0.8', '0.2')}, 0 8px 32px rgba(0, 0, 0, 0.3)`
+                      }}
+                    >
+                      {/* Position Badge */}
+                      <div className={`absolute top-4 right-4 w-12 h-12 rounded-full bg-gradient-to-r ${winner.colors.gradient} flex items-center justify-center`}>
+                        <span className="font-pixel text-sm text-white font-bold">{winner.position}</span>
+                      </div>
+
+                      {/* Winner Crown/Medal Animation */}
+                      <motion.div
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          rotate: [0, 5, -5, 0],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="text-6xl mb-6"
+                      >
+                        {winner.emoji}
+                      </motion.div>
+
+                      {/* Team Name */}
+                      <h3 className={`font-pixel text-xl md:text-2xl mb-4 ${winner.colors.text} relative z-10`}
+                          style={{
+                            textShadow: `0 0 20px ${winner.colors.glow}`
+                          }}>
+                        {winner.name}
+                      </h3>
+
+                      {/* Prize Badge - Cyberpunk style */}
+                      <div className={`inline-flex items-center px-4 py-2 rounded-sm text-sm font-pixel ${winner.colors.text} border-2 ${winner.colors.border} mb-4`}
+                           style={{
+                             background: `linear-gradient(45deg, ${winner.colors.glow.replace('0.8', '0.05')}, ${winner.colors.glow.replace('0.8', '0.1')})`,
+                             textShadow: `0 0 10px ${winner.colors.glow}`,
+                             boxShadow: `0 0 20px ${winner.colors.glow.replace('0.8', '0.3')}`
+                           }}>
+                        {winner.prize}
+                      </div>
+
+                      {/* Celebration Particles */}
+                      <motion.div
+                        className="absolute inset-0 pointer-events-none"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className={`absolute w-2 h-2 ${winner.colors.text.replace('text-', 'bg-')} rounded-full`}
+                            style={{
+                              left: `${10 + i * 20}%`,
+                              top: `${20 + i * 15}%`,
+                            }}
+                            animate={{
+                              y: [0, -15, 0],
+                              opacity: [0, 1, 0],
+                              scale: [0.5, 1, 0.5],
+                            }}
+                            transition={{
+                              duration: 2.5,
+                              repeat: Infinity,
+                              delay: i * 0.3,
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+
+                      {/* Glowing Border Effect on Hover */}
+                      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                           style={{
+                             background: `linear-gradient(45deg, ${winner.colors.glow}, #22c55e, ${winner.colors.glow})`,
+                             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                             maskComposite: 'xor',
+                             WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                             WebkitMaskComposite: 'xor',
+                             padding: '2px'
+                           }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Celebration Message */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="text-center mt-16"
+                >
+                  <div className="glass modern-card rounded-2xl p-8 max-w-2xl mx-auto">
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 2, -2, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      className="text-6xl mb-6 flex justify-center space-x-2"
+                    >
+                      <span>🎊</span>
+                      <span>🏆</span>
+                      <span>🎊</span>
+                    </motion.div>
+                    <h3 className="font-pixel text-xl md:text-2xl mb-4 text-green-400">
+                      CTF COMPLETE
+                    </h3>
+                    <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
+                      Thank you to all participants who made Cook Crack Capture an incredible success! 
+                      These champions have showcased exceptional skills in cybersecurity and problem-solving.
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+            </section>
+
             {/* About Section - Event concept and features */}
             <section id="about" className="pt-24 from-black/50 to-black/40 bg-gradient-to-b">
               <div className="max-w-6xl mx-auto px-6">

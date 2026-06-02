@@ -26,6 +26,7 @@ import { useState, useEffect } from 'react';
 import { allEvents } from 'data/eventsData';
 import WingsAndWiresPreview from '@/components/WingsAndWires/WingsAndWiresPreview';
 import CookCrackCapturePreview from '@/components/CookCrackCapture/CookCrackCapturePreview';
+import TechnoVision3Preview from '@/components/TechnoVision3/TechnoVision3Preview';
 // Next.js components for routing and image optimization
 import Link from 'next/link';
 import Image from 'next/image';
@@ -700,6 +701,14 @@ export default function HomePage() {
                   ) : event.title === "Cook Crack Capture" ? (
                     <div className="flex justify-center mb-6">
                       <CookCrackCapturePreview
+                        size={80}
+                        className="opacity-90"
+                        speed={1}
+                      />
+                    </div>
+                  ) : event.title === "Techno Vision 3.0" ? (
+                    <div className="flex justify-center mb-6">
+                      <TechnoVision3Preview
                         size={80}
                         className="opacity-90"
                         speed={1}
