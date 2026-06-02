@@ -6,7 +6,9 @@ The official website of IEEE RAS MUJ 🚀
 
 ### Prerequisites
 Node.js: v18.0.0 or higher
+
 npm: Package manager
+
 Git: Version control
 
 ### Installation
@@ -35,6 +37,7 @@ The application will be accessible at http://localhost:3000.
 
 ### Technology Stack:
 This platform follows a modern, full-stack architecture designed for seamless event management.
+
 Frontend: Next.js 15+ (App Router), TypeScript, Tailwind CSS
 <!-- Backend: Java Spring Boot (RESTful API), WebSockets for real-time updates
 Database: PostgreSQL
