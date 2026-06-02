@@ -4,14 +4,14 @@ The official website of IEEE RAS MUJ 🚀
 
 ## Quick Start
 
-### Prerequisites
+### Prerequisites:
 Node.js: v18.0.0 or higher
 
 npm: Package manager
 
 Git: Version control
 
-### Installation
+### Installation:
 Clone the repository:
 ```
 git clone https://github.com/ad1tyq/IEEE-RAS.git
@@ -45,8 +45,10 @@ ORM: Prisma
 Authentication: JWT-based session management
 Code Quality: ESLint, Prettier, Husky (Git hooks)-->
 
-### Deployment & Production
+### Deployment & Production:
+
 Building
+
 ```
 npm run build
 ```
@@ -55,6 +57,7 @@ npm run start
 ```
 
 ### Production Deployment:
+
 Frontend: Deployed via Vercel for optimal performance and edge caching.
 <!-- Backend: Packaged as a .jar and hosted on Render or Railway to ensure 24/7 availability during event hours.
 Database: Hosted on Neon.tech (Serverless PostgreSQL) for low-latency, resilient data storage.
