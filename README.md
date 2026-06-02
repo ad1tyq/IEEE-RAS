@@ -12,8 +12,10 @@ Git: Version control
 ### Installation
 Clone the repository:
 ```
-git clone https://github.com/YourUsername/YourRepoName
-cd YourRepoName
+git clone https://github.com/ad1tyq/IEEE-RAS.git
+```
+```
+cd IEEE-RAS
 ```
 
 Install dependencies:
