@@ -21,8 +21,8 @@
 'use client';
 
 // React hooks for state management and lifecycle
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 // Next.js components for routing and image optimization
 import Link from 'next/link';
 import Image from 'next/image';
@@ -33,6 +33,32 @@ import { ChevronRight, Calendar, Users, Award, Mail, MapPin } from 'lucide-react
 // Custom components
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+/**
+ * CountUp Component
+ * Animates a number from 0 to a target value when scrolled into view
+ */
+function CountUp({ end, suffix = "" }: { end: number, suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (isInView && ref.current) {
+      const controls = animate(0, end, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate: (latest) => {
+          if (ref.current) {
+            ref.current.textContent = Math.round(latest).toString() + suffix;
+          }
+        },
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, end, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+}
 
 /**
  * HomePage Component
@@ -532,7 +558,7 @@ export default function HomePage() {
                 >
                   <div className="text-4xl md:text-5xl font-bold">
                     <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                      400+
+                      <CountUp end={400} suffix="+" />
                     </span>
                   </div>
                   <div className="text-gray-400 text-lg mt-2">Active Members</div>
@@ -548,7 +574,7 @@ export default function HomePage() {
                 >
                   <div className="text-4xl md:text-5xl font-bold">
                     <span className="bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">
-                      25+
+                      <CountUp end={25} suffix="+" />
                     </span>
                   </div>
                   <div className="text-gray-400 text-lg mt-2">Projects Completed</div>
@@ -727,9 +753,9 @@ export default function HomePage() {
 
               {/* Location Contact Card */}
               <div className="glass-card p-6 rounded-2xl backdrop-blur-md bg-white/5 border border-white/10">
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 mb-4">
                   {/* Location icon */}
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-red-500 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-red-500 rounded-full flex items-center justify-center shrink-0">
                     <MapPin size={24} className="text-white" />
                   </div>
                   {/* Location details */}
@@ -737,6 +763,19 @@ export default function HomePage() {
                     <h4 className="text-lg font-semibold text-white">Location</h4>
                     <p className="text-gray-400">Manipal University Jaipur, Rajasthan</p>
                   </div>
+                </div>
+                
+                {/* Google Maps Embed */}
+                <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 mt-2">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.877283914113!2d75.5626593!3d26.8438552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4850e05bee9b%3A0x1b8d67402d4eb863!2sManipal%20University%20Jaipur!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }} 
+                    allowFullScreen={true}
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               </div>
             </motion.div>
