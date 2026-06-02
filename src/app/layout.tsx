@@ -67,7 +67,7 @@ export const metadata: Metadata = {
    * Base URL for resolving relative URLs in metadata
    * Required for proper Open Graph and Twitter image resolution
    */
-  metadataBase: new URL('https://ieeeras-muj.org'),
+  metadataBase: new URL('https://ieee-ras-ruby.vercel.app'),
   
   // ========================================
   // PRIMARY SEO METADATA
