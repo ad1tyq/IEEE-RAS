@@ -1,4 +1,4 @@
-# IEEE RAS MUJ - Event Platform
+# IEEE RAS MUJ - Official Website
 
 The official website of IEEE RAS MUJ 🚀
 
