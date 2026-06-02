@@ -1,0 +1,595 @@
+/**
+ * Global Styles for Pixel Palettes Website
+ * 
+ * This file contains all global CSS styles for the Pixel Palettes hackathon website
+ * and IEEE RAS MUJ club site. The styles are organized by category for better maintainability.
+ * 
+ * Structure:
+ * 1. Tailwind CSS Import
+ * 2. CSS Custom Properties (Design Tokens)
+ * 3. Browser Customizations (Scrollbar, etc.)
+ * 4. Animation Effects (Glitch, Neon, etc.)
+ * 5. Component Styles (Glass, Buttons, Cards)
+ * 6. Utility Classes
+ * 7. Responsive Design
+ * 
+ * Performance Optimizations:
+ * - GPU-accelerated animations using transform and opacity
+ * - Efficient keyframe animations with will-change property
+ * - Optimized cubic-bezier timing functions
+ * - Hardware acceleration hints for smooth performance
+ */
+
+@import "tailwindcss";
+
+/* ==========================================================================
+   GLOBAL BROWSER BEHAVIOR
+   ========================================================================== */
+
+/**
+ * Smooth Scrolling Configuration
+ * 
+ * Enables smooth scrolling for all anchor link interactions across the platform.
+ * Provides a polished user experience when navigating between sections.
+ * 
+ * Features:
+ * - Smooth scroll behavior for all elements
+ * - Optimized timing for comfortable navigation
+ * - Cross-browser compatibility
+ * - Respects user's motion preferences
+ */
+html {
+  scroll-behavior: smooth;
+  /* Smooth scrolling for anchor links and programmatic scrolling */
+  scroll-padding-top: 80px; /* Account for fixed navigation header */
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+}
+
+body {
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+  min-width: 320px; /* Minimum viewport width support */
+}
+
+/* Enhanced smooth scrolling for browsers that support scroll-behavior-timing */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect user's motion preferences - disable smooth scrolling if requested */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ========================================================================== */
+
+/**
+ * CSS Custom Properties for design consistency and theme management.
+ * These tokens ensure consistent styling across the entire application.
+ */
+:root {
+  /* Font Family Tokens - Defined in layout.tsx with Next.js font optimization */
+  --font-press-start: 'Press Start 2P', monospace;
+  --font-vt323: 'VT323', monospace;
+  
+  /* Color Palette Tokens */
+  --color-primary-purple: #8338ec;
+  --color-primary-pink: #ff006e;
+  --color-primary-cyan: #00f5ff;
+  --color-background: #000000;
+  --color-background-secondary: #0f0f23;
+  
+  /* Animation Timing Tokens */
+  --timing-fast: 0.15s;
+  --timing-normal: 0.3s;
+  --timing-slow: 0.6s;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index Scale for consistent layering */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* ==========================================================================
+   BROWSER CUSTOMIZATIONS
+   ========================================================================== */
+
+/**
+ * Custom scrollbar styling for webkit browsers.
+ * Provides a sleek, themed scrollbar that matches the cyberpunk aesthetic.
+ */
+::-webkit-scrollbar {
+  width: 6px; /* Thin scrollbar for modern look */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Invisible track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--color-primary-pink), var(--color-primary-purple));
+  border-radius: 3px;
+  /* Performance hint for GPU acceleration */
+  will-change: background;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff1744, #9c27b0);
+}
+
+/* ==========================================================================
+   CYBERPUNK ANIMATION EFFECTS
+   ========================================================================== */
+
+/**
+ * Glitch Effect - Cyberpunk text distortion
+ * 
+ * Creates a subtle glitch effect for headers and important text.
+ * Uses CSS pseudo-elements and clip-path animations for performance.
+ * GPU-accelerated with transform and opacity changes.
+ */
+.glitch {
+  position: relative;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  /* Performance optimization for animations */
+  will-change: transform;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  /* GPU acceleration hint */
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.glitch::before {
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+  color: var(--color-primary-pink);
+  z-index: -1;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch::after {
+  animation: glitch-anim2 3s infinite linear alternate-reverse;
+  color: var(--color-primary-cyan);
+  z-index: -2;
+  clip: rect(0, 900px, 0, 0);
+}
+
+/**
+ * Glitch Animation Keyframes
+ * 
+ * Two separate animation patterns create the complex glitch effect.
+ * Uses transform and clip for GPU-accelerated performance.
+ */
+@keyframes glitch-anim {
+  0% {
+    clip: rect(42px, 9999px, 44px, 0);
+    transform: skew(0.5deg) translate3d(0, 0, 0);
+  }
+  20% {
+    clip: rect(12px, 9999px, 59px, 0);
+    transform: skew(0.2deg) translate3d(0, 0, 0);
+  }
+  40% {
+    clip: rect(48px, 9999px, 29px, 0);
+    transform: skew(0.1deg) translate3d(0, 0, 0);
+  }
+  60% {
+    clip: rect(42px, 9999px, 73px, 0);
+    transform: skew(0.3deg) translate3d(0, 0, 0);
+  }
+  80% {
+    clip: rect(63px, 9999px, 27px, 0);
+    transform: skew(0.2deg) translate3d(0, 0, 0);
+  }
+  100% {
+    clip: rect(34px, 9999px, 55px, 0);
+    transform: skew(0.4deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+    transform: skew(0.4deg) translate3d(0, 0, 0);
+  }
+  25% {
+    clip: rect(52px, 9999px, 74px, 0);
+    transform: skew(0.3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    clip: rect(79px, 9999px, 85px, 0);
+    transform: skew(0.3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    clip: rect(75px, 9999px, 5px, 0);
+    transform: skew(0.1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    clip: rect(67px, 9999px, 61px, 0);
+    transform: skew(0.2deg) translate3d(0, 0, 0);
+  }
+}
+
+/**
+ * Neon Glow Effects
+ * 
+ * Subtle neon text and border effects for cyberpunk aesthetic.
+ * Optimized with CSS custom properties for consistent theming.
+ */
+.neon-glow {
+  text-shadow: 
+    0 0 10px rgba(255, 0, 110, 0.5), 
+    0 0 20px rgba(255, 0, 110, 0.3);
+  /* Performance hint for text rendering */
+  text-rendering: optimizeLegibility;
+}
+
+/**
+ * Neon Border Effect
+ * 
+ * Creates glowing borders for UI elements with cyberpunk aesthetic.
+ * Uses box-shadow for the glow effect instead of border for better performance.
+ */
+.neon-border {
+  border: 1px solid rgba(255, 0, 110, 0.6); /* Base pink border */
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.2); /* Subtle outer glow */
+  /* GPU acceleration for smooth border effects during hover animations */
+  will-change: box-shadow;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM COMPONENTS
+   ========================================================================== */
+
+/**
+ * Glassmorphism Effects
+ * 
+ * Modern glass-like UI elements with backdrop blur and transparency.
+ * Optimized for performance with hardware acceleration hints.
+ */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Performance optimization for backdrop effects */
+  isolation: isolate;
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  isolation: isolate;
+}
+
+.glass-card {
+  transition: all var(--timing-normal) var(--easing-smooth);
+  /* GPU acceleration hint */
+  will-change: transform, box-shadow;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px) translate3d(0, 0, 0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   INTERACTIVE COMPONENTS
+   ========================================================================== */
+
+/**
+ * Modern Pixel Button
+ * 
+ * Interactive button with gradient background and shine effect.
+ * Optimized for smooth hover animations and accessibility.
+ */
+.pixel-button {
+  background: linear-gradient(135deg, var(--color-primary-pink), var(--color-primary-purple));
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--timing-normal) var(--easing-smooth);
+  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.3);
+  /* Performance hints */
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+}
+
+.pixel-button:hover {
+  transform: translateY(-2px) translate3d(0, 0, 0);
+  box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+}
+
+/**
+ * Button Shine Effect
+ * 
+ * Sliding shine animation on hover for premium feel.
+ * Uses transform for GPU-accelerated performance.
+ */
+.pixel-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--timing-slow) var(--easing-smooth);
+  /* GPU acceleration */
+  transform: translate3d(0, 0, 0);
+}
+
+.pixel-button:hover::before {
+  left: 100%;
+}
+
+/* ==========================================================================
+   BACKGROUND ANIMATIONS
+   ========================================================================== */
+
+/**
+ * Modern Animated Background
+ * 
+ * Subtle floating animation for background elements.
+ * Uses transform3d for hardware acceleration and smooth performance.
+ */
+.modern-bg {
+  background: radial-gradient(ellipse at top, var(--color-background-secondary) 0%, var(--color-background) 70%);
+  position: relative;
+}
+
+.modern-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(131, 56, 236, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 245, 255, 0.05) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+  /* Performance optimization */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/**
+ * Floating Animation Keyframes
+ * 
+ * Subtle movement for background elements.
+ * GPU-accelerated with transform3d.
+ */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg) translate3d(0, 0, 0); 
+  }
+  33% { 
+    transform: translateY(-10px) rotate(1deg) translate3d(0, 0, 0); 
+  }
+  66% { 
+    transform: translateY(5px) rotate(-1deg) translate3d(0, 0, 0); 
+  }
+}
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+/**
+ * Font Utility Classes
+ * 
+ * Custom font families with optimized letter spacing for the pixel aesthetic.
+ * Font tokens are defined in CSS custom properties for consistency.
+ */
+.font-pixel {
+  font-family: var(--font-press-start);
+  letter-spacing: 0.1em;
+  /* Optimize font rendering */
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+  /* Prevent text overflow */
+  word-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.font-mono-pixel {
+  font-family: var(--font-vt323);
+  letter-spacing: 0.05em;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   CARD COMPONENTS
+   ========================================================================== */
+
+/**
+ * Modern Card Hover Effects
+ * 
+ * Smooth hover animations for card components.
+ * GPU-accelerated transforms for 60fps performance.
+ */
+.modern-card {
+  transition: all var(--timing-normal) var(--easing-smooth);
+  /* Performance hints */
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+}
+
+.modern-card:hover {
+  transform: translateY(-5px) translate3d(0, 0, 0);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/**
+ * Timeline Dot Styling
+ * 
+ * Gradient dots with neon glow for timeline components.
+ */
+.timeline-dot {
+  background: linear-gradient(135deg, var(--color-primary-pink), var(--color-primary-purple));
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+  /* Smooth rendering hint */
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+/**
+ * Screen Reader Only Content
+ * 
+ * Utility class for screen reader accessible content.
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/**
+ * Focus Indicators
+ * 
+ * Accessible focus styles for keyboard navigation.
+ */
+.focus-visible:focus {
+  outline: 2px solid var(--color-primary-purple);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/**
+ * Mobile-First Responsive Design
+ * 
+ * Optimized styles for different screen sizes.
+ * Uses efficient media queries for better performance.
+ */
+
+/* Small screens (mobile) */
+@media (max-width: 768px) {
+  .glitch {
+    font-size: 2.5rem;
+    /* Reduce animation complexity on mobile for better performance */
+    animation-duration: 3s;
+  }
+  
+  /* Optimize glass effects for mobile performance */
+  .glass,
+  .glass-strong {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* Reduce motion for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .glitch::before,
+    .glitch::after {
+      animation: none;
+    }
+    
+    .modern-bg::before {
+      animation: none;
+    }
+    
+    .pixel-button,
+    .glass-card,
+    .modern-card {
+      transition: none;
+    }
+  }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .glass,
+  .glass-strong {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+}
+
+/* Large screens (desktop) */
+@media (min-width: 1025px) {
+  /* Enhanced effects for desktop with more processing power */
+  .neon-glow {
+    text-shadow: 
+      0 0 5px rgba(255, 0, 110, 0.4),
+      0 0 10px rgba(255, 0, 110, 0.5), 
+      0 0 20px rgba(255, 0, 110, 0.3),
+      0 0 40px rgba(255, 0, 110, 0.1);
+  }
+}
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================================================== */
+
+/**
+ * Hardware Acceleration Hints
+ * 
+ * Force GPU acceleration for smooth animations on supported elements.
+ */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/**
+ * Critical CSS - Above the fold optimizations
+ * These styles are essential for initial page render.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-on-scroll {
+    will-change: transform, opacity;
+  }
+}
