@@ -476,7 +476,7 @@ export default function HomePage() {
 
               {/* Secondary CTA Button - View Events */}
               <motion.a
-                href="#events"
+                href="/events"
                 className="px-8 py-4 border-2 border-purple-400/50 rounded-full font-semibold text-purple-400 hover:bg-purple-400/10 transition-all duration-300 backdrop-blur-sm"
                 whileHover={{ scale: 1.05, borderColor: 'rgba(168, 85, 247, 0.8)' }}
                 whileTap={{ scale: 0.95 }}
