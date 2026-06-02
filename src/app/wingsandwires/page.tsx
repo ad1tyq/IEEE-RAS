@@ -547,7 +547,7 @@ export default function Home() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8, duration: 0.8 }}
                   >
-                    Where creativity meets artificial intelligence in a 24-hour journey of innovation
+                    Dive into the mechanics of flight and explore the fundamentals of drone technology
                   </motion.p>
                 </motion.div>
 
