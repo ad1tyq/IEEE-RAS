@@ -1,6 +1,6 @@
 # IEEE RAS MUJ - Event Platform
 
-The official platform for hosting hackathons, coding relays, and community-driven software events at Manipal University Jaipur. Built for performance, security, and scalability.
+The official website of IEEE RAS MUJ 🚀
 
 ## Quick Start
 
