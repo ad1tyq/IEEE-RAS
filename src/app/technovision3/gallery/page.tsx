@@ -69,6 +69,7 @@ export default function GalleryPage() {
             <a
               key={item.id}
               href="#"
+              onClick={(e) => e.preventDefault()}
               className={styles.itemAnchor}
               style={{
                 '--i': i,
