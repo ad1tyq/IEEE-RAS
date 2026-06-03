@@ -40,7 +40,12 @@ export default function EventsPage() {
           </motion.div>
 
           {/* Toggle Switch */}
-          <div className="flex justify-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex justify-center mb-16"
+          >
             <div className="flex relative p-1 bg-white/5 backdrop-blur-md rounded-full border border-white/10 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
               {['completed', 'upcoming'].map((tab) => (
                 <button
@@ -62,7 +67,7 @@ export default function EventsPage() {
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Events Grid */}
           {displayedEvents.length === 0 ? (
