@@ -87,6 +87,7 @@ export default function ResourcesPage() {
             <div className="hidden md:flex space-x-8">
               <Link href="/wingsandwires#about" className="text-xl hover:text-purple-400 transition-colors font-mono-pixel">About</Link>
               <Link href="/wingsandwires/resources" className="text-xl text-purple-400 font-mono-pixel">Resources</Link>
+              <Link href="/wingsandwires/gallery" className="text-xl hover:text-purple-400 transition-colors font-mono-pixel">Gallery</Link>
             </div>
             <div className="md:hidden">
               <button
@@ -117,6 +118,7 @@ export default function ResourcesPage() {
               <Link href="/wingsandwires#about" className="block px-4 py-3 text-lg font-mono-pixel text-gray-300 hover:text-purple-400" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
               {/* Removed the extra 'judges' link from your code to match the desktop nav */}
               <Link href="/wingsandwires/resources" className="block px-4 py-3 text-lg font-mono-pixel text-purple-400" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
+              <Link href="/wingsandwires/gallery" className="block px-4 py-3 text-lg font-mono-pixel text-gray-300 hover:text-purple-400" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
             </div>
           </motion.div>
         )}
