@@ -45,6 +45,16 @@
     margin-top: 0vh;
     margin-bottom: 5vh;
   }
+  
+  .hoverZone {
+    display: none;
+  }
+
+  .nav:has(.itemAnchor:hover) .itemAnchor:hover,
+  .nav:has(.itemAnchor:focus) .itemAnchor:focus,
+  .nav:has(.itemAnchor:active) .itemAnchor:active {
+    flex: 4;
+  }
 }
 
 .itemAnchor {
