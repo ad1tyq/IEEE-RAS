@@ -449,6 +449,7 @@ export default function Home() {
                   <div className="hidden md:flex space-x-8">
                     <a href="#about" className="text-xl hover:text-purple-400 transition-colors font-mono-pixel">About</a>
                     <Link href="/wingsandwires/resources" className="text-xl hover:text-purple-400 transition-colors font-mono-pixel">Resources</Link>
+                    <Link href="/wingsandwires/gallery" className="text-xl hover:text-purple-400 transition-colors font-mono-pixel">Gallery</Link>
                   </div>
 
                   {/* Mobile Menu Button */}
@@ -501,6 +502,18 @@ export default function Home() {
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           Resources
+                        </Link>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ x: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href="/wingsandwires/gallery"
+                          className="block px-4 py-3 text-lg font-mono-pixel text-gray-300 hover:text-purple-400 transition-colors duration-300 border-b border-gray-800/30"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Gallery
                         </Link>
                       </motion.div>
                     </div>
