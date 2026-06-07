@@ -1,9 +1,9 @@
 /**
  * IEEE RAS MUJ Homepage Component
- * 
- * This is the main landing page for the IEEE Robotics and Automation Society 
+ *
+ * This is the main landing page for the IEEE Robotics and Automation Society
  * at Manipal University Jaipur. It features:
- * 
+ *
  * - Sophisticated squared neuronal circuit brain loading animation
  * - Responsive navigation with IEEE RAS branding
  * - Hero section with gradient text and call-to-action buttons
@@ -12,33 +12,33 @@
  * - Contact form with Google Sheets integration
  * - IEEE Global resources section
  * - Professional footer
- * 
+ *
  * @author IEEE RAS MUJ Development Team
  * @version 2.0.0
  * @since 2024
  */
 
-'use client';
+"use client";
 
 // React hooks for state management and lifecycle
-import { motion, useInView, animate } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { motion, useInView, animate } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 // Next.js components for routing and image optimization
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
 // Lucide React icons for UI elements
-import { ChevronRight, Calendar, Users, Award, Mail, MapPin } from 'lucide-react';
+import { ChevronRight, Calendar, Users, Award, Mail, MapPin } from "lucide-react";
 
 // Custom components
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 /**
  * CountUp Component
  * Animates a number from 0 to a target value when scrolled into view
  */
-function CountUp({ end, suffix = "" }: { end: number, suffix?: string }) {
+function CountUp({ end, suffix = "" }: { end: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -62,7 +62,7 @@ function CountUp({ end, suffix = "" }: { end: number, suffix?: string }) {
 
 /**
  * HomePage Component
- * 
+ *
  * Main landing page component that handles:
  * - Loading animation state management
  * - Contact form functionality with Google Sheets integration
@@ -86,23 +86,21 @@ export default function HomePage() {
    */
   //  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-
-
   /**
    * Contact form data state
    * Manages user input for the contact form
    */
   const [formData, setFormData] = useState({
-    name: '',     // User's full name
-    email: '',    // User's email address
-    message: '',  // User's message content
+    name: "", // User's full name
+    email: "", // User's email address
+    message: "", // User's message content
   });
 
   /**
    * Form submission status
    * Displays success/error messages to the user
    */
-  const [submitStatus, setSubmitStatus] = useState('');
+  const [submitStatus, setSubmitStatus] = useState("");
 
   /**
    * Form submission loading state
@@ -123,8 +121,6 @@ export default function HomePage() {
     setMounted(true);
   }, []);
 
-
-
   // Prevent rendering until component is mounted (hydration safety)
   if (!mounted) return null;
 
@@ -135,60 +131,61 @@ export default function HomePage() {
   /**
    * Form input change handler
    * Updates form data state when user types in form fields
-   * 
+   *
    * @param {React.ChangeEvent} e - The input change event
    */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   /**
    * Form submission handler
    * Sends form data to Google Sheets via Google Apps Script
-   * 
+   *
    * @param {React.FormEvent} e - The form submission event
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('');
+    setSubmitStatus("");
 
     try {
       // Prepare form data for Google Apps Script
       const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('message', formData.message);
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("message", formData.message);
 
       // Send data to Google Apps Script endpoint
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxcx0kaGoBcyWS4eU9QuY1jJ18w4_yh8wyWhpVn95RFd173vgqDaOion3qzpgGsIonh/exec', {
-        method: 'POST',
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxcx0kaGoBcyWS4eU9QuY1jJ18w4_yh8wyWhpVn95RFd173vgqDaOion3qzpgGsIonh/exec",
+        {
+          method: "POST",
+          body: formDataToSend,
+        },
+      );
 
       if (response.ok) {
         // Success: Show confirmation and reset form
-        setSubmitStatus('Message sent successfully! We will get back to you soon.');
-        setFormData({ name: '', email: '', message: '' });
+        setSubmitStatus("Message sent successfully! We will get back to you soon.");
+        setFormData({ name: "", email: "", message: "" });
       } else {
         // Error: Show error message
-        setSubmitStatus('Failed to send message. Please try again.');
+        setSubmitStatus("Failed to send message. Please try again.");
       }
     } catch (error) {
       // Network error: Log and show user-friendly message
-      console.error('Error submitting form:', error);
-      setSubmitStatus('Failed to send message. Please try again.');
+      console.error("Error submitting form:", error);
+      setSubmitStatus("Failed to send message. Please try again.");
     } finally {
       // Reset submission state
       setIsSubmitting(false);
     }
   };
-
-
 
   // ========================================
   // ANIMATION VARIANTS
@@ -205,9 +202,9 @@ export default function HomePage() {
       y: 0,
       transition: {
         duration: 1,
-        ease: "easeOut" as const
-      }
-    }
+        ease: "easeOut" as const,
+      },
+    },
   };
 
   /**
@@ -216,17 +213,15 @@ export default function HomePage() {
    */
   const floatingVariants = {
     animate: {
-      y: [-10, 10, -10],           // Vertical floating motion
-      rotate: [0, 5, -5, 0],       // Subtle rotation
+      y: [-10, 10, -10], // Vertical floating motion
+      rotate: [0, 5, -5, 0], // Subtle rotation
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: "easeInOut" as const
-      }
-    }
+        ease: "easeInOut" as const,
+      },
+    },
   };
-
-
 
   // ========================================
   // MAIN COMPONENT RENDER
@@ -234,7 +229,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-
       {/* ========================================
           MAIN WEBSITE CONTENT
           ======================================== */}
@@ -243,7 +237,7 @@ export default function HomePage() {
                 ANIMATED BACKGROUND ELEMENTS
                 ======================================== */}
 
-      {/* 
+      {/*
               Floating Background Decorations
               Subtle animated elements that add visual interest
               Uses different delays for organic movement
@@ -259,14 +253,14 @@ export default function HomePage() {
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          style={{ animationDelay: '2s' }}
+          style={{ animationDelay: "2s" }}
           className="absolute top-40 right-20 w-24 h-24 bg-red-500/10 rounded-full blur-xl"
         />
         {/* Blue floating orb with delay */}
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          style={{ animationDelay: '4s' }}
+          style={{ animationDelay: "4s" }}
           className="absolute bottom-20 left-1/3 w-40 h-40 bg-blue-500/10 rounded-full blur-xl"
         />
       </div>
@@ -275,7 +269,7 @@ export default function HomePage() {
                 NAVIGATION BAR
                 ======================================== */}
 
-      {/* 
+      {/*
               Fixed Navigation Header
               - Sticky positioning with backdrop blur
               - IEEE RAS logo with hover effects
@@ -384,7 +378,7 @@ export default function HomePage() {
                 HERO SECTION
                 ======================================== */}
 
-      {/* 
+      {/*
               Main Hero Section
               - Full-screen height with centered content
               - Gradient text effects for IEEE RAS branding
@@ -401,7 +395,7 @@ export default function HomePage() {
           >
             {/* Main heading and tagline */}
             <div className="space-y-4">
-              {/* 
+              {/*
                       Main Title with Gradient Text
                       - Large responsive typography
                       - Gradient effect on IEEE RAS text
@@ -425,7 +419,7 @@ export default function HomePage() {
                 <span className="text-gray-300 text-4xl md:text-5xl">Jaipur</span>
               </motion.h1>
 
-              {/* 
+              {/*
                       Tagline/Description
                       - Mission statement for the organization
                       - Delayed animation for reading flow
@@ -436,12 +430,12 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
               >
-                Advancing the future of robotics and automation through innovation,
-                research, and collaborative excellence.
+                Advancing the future of robotics and automation through innovation, research, and
+                collaborative excellence.
               </motion.p>
             </div>
 
-            {/* 
+            {/*
                     Call-to-Action Buttons
                     - Primary and secondary action buttons
                     - Responsive layout (stack on mobile)
@@ -463,12 +457,15 @@ export default function HomePage() {
                 <span className="relative z-10 flex items-center space-x-2">
                   <span>Explore Our Work</span>
                   {/* Arrow icon with hover animation */}
-                  <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight
+                    size={20}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </span>
                 {/* Hover overlay effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-purple-700 to-red-700"
-                  initial={{ x: '100%' }}
+                  initial={{ x: "100%" }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -478,7 +475,10 @@ export default function HomePage() {
               <motion.a
                 href="/events"
                 className="px-8 py-4 border-2 border-purple-400/50 rounded-full font-semibold text-purple-400 hover:bg-purple-400/10 transition-all duration-300 backdrop-blur-sm"
-                whileHover={{ scale: 1.05, borderColor: 'rgba(168, 85, 247, 0.8)' }}
+                whileHover={{
+                  scale: 1.05,
+                  borderColor: "rgba(168, 85, 247, 0.8)",
+                }}
                 whileTap={{ scale: 0.95 }}
               >
                 View Events
@@ -486,15 +486,13 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
         </div>
-
-
       </section>
 
       {/* ========================================
                 ABOUT US SECTION
                 ======================================== */}
 
-      {/* 
+      {/*
               About Us Section
               - Modern two-column layout with statistics and feature cards
               - Left side: Main content with stats
@@ -503,10 +501,8 @@ export default function HomePage() {
             */}
       <section id="about" className="py-20 relative bg-black">
         <div className="max-w-7xl mx-auto px-6">
-
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
             {/* Left Column - Main Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -534,15 +530,14 @@ export default function HomePage() {
               {/* Description */}
               <div className="space-y-6">
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  IEEE Robotics and Automation Society at Manipal University Jaipur is
-                  dedicated to advancing the fields of robotics and automation through
-                  cutting-edge research, innovative projects, and collaborative learning
-                  experiences.
+                  IEEE Robotics and Automation Society at Manipal University Jaipur is dedicated to
+                  advancing the fields of robotics and automation through cutting-edge research,
+                  innovative projects, and collaborative learning experiences.
                 </p>
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Our community brings together passionate students, researchers, and
-                  industry experts to explore the limitless possibilities of autonomous
-                  systems, artificial intelligence, and robotic technologies.
+                  Our community brings together passionate students, researchers, and industry
+                  experts to explore the limitless possibilities of autonomous systems, artificial
+                  intelligence, and robotic technologies.
                 </p>
               </div>
 
@@ -590,7 +585,6 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="space-y-6"
             >
-
               {/* Community Card */}
               <motion.div
                 whileHover={{ scale: 1.02 }}
@@ -652,8 +646,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
       {/* ========================================
                 SPONSOR SECTION
                 ======================================== */}
@@ -676,8 +668,9 @@ export default function HomePage() {
             <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-red-500 mx-auto mb-8"></div>
             {/* Sponsor description */}
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Interested in sponsoring our events and initiatives? Join us in supporting the next generation of innovators
-              and showcase your brand to talented developers, researchers, and engineers in robotics and automation.
+              Interested in sponsoring our events and initiatives? Join us in supporting the next
+              generation of innovators and showcase your brand to talented developers, researchers,
+              and engineers in robotics and automation.
             </p>
             {/* Contact CTA button */}
             <motion.a
@@ -697,7 +690,7 @@ export default function HomePage() {
                 CONTACT SECTION
                 ======================================== */}
 
-      {/* 
+      {/*
               Contact Section
               - Two-column layout with contact info and form
               - Google Sheets integration for form submissions
@@ -706,7 +699,6 @@ export default function HomePage() {
             */}
       <section id="contact" className="py-20 relative">
         <div className="max-w-7xl mx-auto px-6">
-
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -727,7 +719,6 @@ export default function HomePage() {
 
           {/* Contact Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
             {/* Left Column - Contact Information */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -764,16 +755,19 @@ export default function HomePage() {
                     <p className="text-gray-400">Manipal University Jaipur, Rajasthan</p>
                   </div>
                 </div>
-                
+
                 {/* Google Maps Embed */}
                 <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 mt-2">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.877283914113!2d75.5626593!3d26.8438552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4850e05bee9b%3A0x1b8d67402d4eb863!2sManipal%20University%20Jaipur!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }} 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.877283914113!2d75.5626593!3d26.8438552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4850e05bee9b%3A0x1b8d67402d4eb863!2sManipal%20University%20Jaipur!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{
+                      border: 0,
+                      filter: "invert(90%) hue-rotate(180deg)",
+                    }}
                     allowFullScreen={true}
-                    loading="lazy" 
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
@@ -787,7 +781,7 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              {/* 
+              {/*
                       Contact Form Container
                       - Glass morphism design
                       - Form submission with Google Sheets integration
@@ -845,7 +839,7 @@ export default function HomePage() {
                     whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                     whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </motion.button>
 
                   {/* Form Status Message */}
@@ -853,10 +847,9 @@ export default function HomePage() {
                     <motion.p
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`text-sm ${submitStatus.includes('successfully')
-                        ? 'text-green-400'
-                        : 'text-red-400'
-                        }`}
+                      className={`text-sm ${
+                        submitStatus.includes("successfully") ? "text-green-400" : "text-red-400"
+                      }`}
                     >
                       {submitStatus}
                     </motion.p>
@@ -872,7 +865,7 @@ export default function HomePage() {
                 IEEE GLOBAL RESOURCES SECTION
                 ======================================== */}
 
-      {/* 
+      {/*
               IEEE Global Links Section
               - Showcases global IEEE and IEEE RAS resources
               - Two-card layout with external links
@@ -881,7 +874,6 @@ export default function HomePage() {
             */}
       <section className="py-16 bg-gradient-to-b from-black to-gray-900/20 border-t border-gray-800/30">
         <div className="max-w-7xl mx-auto px-6">
-
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -900,7 +892,8 @@ export default function HomePage() {
             <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-red-500 mx-auto mb-6"></div>
             {/* Section description */}
             <p className="text-gray-300 max-w-2xl mx-auto">
-              Connect with the global IEEE community and explore robotics and automation resources worldwide.
+              Connect with the global IEEE community and explore robotics and automation resources
+              worldwide.
             </p>
           </motion.div>
 
@@ -912,7 +905,6 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
           >
-
             {/* IEEE Global Card */}
             <motion.a
               href="https://www.ieee.org"
@@ -932,7 +924,7 @@ export default function HomePage() {
                     height={64}
                     className="object-contain w-full h-full p-2"
                     style={{
-                      filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
+                      filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))",
                     }}
                   />
                 </div>
@@ -942,12 +934,16 @@ export default function HomePage() {
                 </h4>
                 {/* Card Description */}
                 <p className="text-gray-300 mb-4 group-hover:text-gray-200 transition-colors">
-                  Explore the world&apos;s largest technical professional organization dedicated to advancing technology.
+                  Explore the world&apos;s largest technical professional organization dedicated to
+                  advancing technology.
                 </p>
                 {/* Call-to-action link */}
                 <div className="inline-flex items-center space-x-2 text-purple-400 group-hover:text-purple-300 transition-colors">
                   <span className="font-medium">Visit ieee.org</span>
-                  <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight
+                    size={16}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </div>
               </div>
             </motion.a>
@@ -971,7 +967,7 @@ export default function HomePage() {
                     height={64}
                     className="object-contain w-full h-full p-2"
                     style={{
-                      filter: 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))'
+                      filter: "drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))",
                     }}
                   />
                 </div>
@@ -981,12 +977,16 @@ export default function HomePage() {
                 </h4>
                 {/* Card Description */}
                 <p className="text-gray-300 mb-4 group-hover:text-gray-200 transition-colors">
-                  Discover cutting-edge research and developments in robotics and automation systems worldwide.
+                  Discover cutting-edge research and developments in robotics and automation systems
+                  worldwide.
                 </p>
                 {/* Call-to-action link */}
                 <div className="inline-flex items-center space-x-2 text-red-400 group-hover:text-red-300 transition-colors">
                   <span className="font-medium">Visit ieee-ras.org</span>
-                  <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight
+                    size={16}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </div>
               </div>
             </motion.a>
@@ -1000,4 +1000,5 @@ export default function HomePage() {
       <Footer />
     </div>
   );
-} 
+}
+
