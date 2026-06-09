@@ -129,7 +129,7 @@ export default function EventsPage() {
                     </p>
 
                     <div className="text-center">
-                      <p className="text-gray-300 text-lg mb-3 font-semibold tracking-wider">2025</p>
+                      <p className="text-gray-300 text-lg mb-3 font-semibold tracking-wider">{event.year}</p>
                       <Link
                         href={event.href}
                         className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-red-600 rounded-full font-medium text-white transition-all duration-300 hover:from-purple-700 hover:to-red-700 hover:scale-105"

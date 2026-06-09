@@ -5,12 +5,15 @@ function SocialIcon({ href, hoverBg, children }: { href: string; hoverBg: string
   return (
     <Link
       href={href}
-      className="w-11 h-11 bg-black/60 border border-gray-700/50 flex items-center justify-center overflow-hidden transition-all duration-300 active:scale-90 group rounded-xl"
-      style={{ '--hover-bg': hoverBg } as React.CSSProperties}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverBg)}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+      className="relative w-11 h-11 bg-black/60 border border-gray-700/50 flex items-center justify-center overflow-hidden transition-all duration-300 active:scale-90 group rounded-xl"
     >
-      <span className="w-[17px] group-hover:animate-[slide-in-top_0.3s_both]">
+      {/* Slide-up colored background (like ::before in the reference) */}
+      <div
+        className="absolute inset-0 transition-transform duration-500 translate-y-full group-hover:translate-y-0"
+        style={{ backgroundColor: hoverBg }}
+      />
+      {/* Icon */}
+      <span className="relative z-10 w-[17px] transition-all duration-500 group-hover:[transform:rotateY(360deg)]">
         {children}
       </span>
     </Link>
