@@ -128,6 +128,8 @@ export default function EventsPage() {
                       {event.description}
                     </p>
 
+                      <p className="text-gray-300 text-lg mb-6 font-semibold tracking-wider text-center">{event.year}</p>
+
                     <div className="text-center">
                       <Link
                         href={event.href}
