@@ -13,15 +13,15 @@ Git: Version control
 
 ### Installation:
 Clone the repository:
-```
+```bash
 git clone https://github.com/ad1tyq/IEEE-RAS.git
 ```
-```
+```bash
 cd IEEE-RAS
 ```
 
 Install dependencies:
-```
+```bash
 npm install
 ```
 
@@ -29,14 +29,19 @@ Environment Setup:
 
 Create a .env.local file in the root directory and configure:
 ```
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=YOUR_PUBLIC_CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
 ```
 
-### Development:
-Start the development server:
+### Development & Contribution:
+Create your own separate branch:
+```bash
+git checkout -b your_branch_name
 ```
+
+Start the development server:
+```bash
 npm run dev
 ```
 
@@ -56,7 +61,7 @@ Code Quality: ESLint, Prettier, Husky (Git hooks)-->
 
 Building
 
-```
+```bash
 npm run build
 ```
 ```
@@ -73,8 +78,19 @@ docker run -p 3000:3000 event-platform-->
 
 ### Contributing:
 We welcome contributions from club members.
-Please ensure you run 
+Please create your own branch
+```bash
+git checkout -b your_branch_name
 ```
+To push code do the following
+```bash
+git add .
+git commit -m "your commit info"
+git push origin your_branch_name
+```
+
+Please ensure you run 
+```bash
 npm run lint
 ```
 before submitting a Pull Request.
