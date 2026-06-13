@@ -1,0 +1,1 @@
+export const about = "'Wings and Wires' is an educational workshop designed to introduce participants to the fundamentals of drone technology, focusing on theoretical knowledge about the working, components, and principles behind unmanned aerial vehicles (UAVs).";

@@ -34,10 +34,10 @@ export const eventsData = {
   ],
   upcoming: [
     {
-      id: "1a",
+      id: "4a",
       title: "Unlock'D",
       description:
-        "An immersive 36-hour progressive software development challenge designed to bridge the gap between theory and practice.",
+        "An immersive 24-hour progressive software development challenge designed to bridge the gap between theory and practice.",
       href: "/unlockd",
       status: "upcoming",
       year: "2026",

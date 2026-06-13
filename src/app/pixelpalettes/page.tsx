@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { Calendar, MapPin, Trophy, Clock, ArrowRight, Zap, Info } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { about } from '../../../data/pixelpalettes/about';
+import { aimData } from '../../../data/pixelpalettes/aim';
+import { winnersData } from '../../../data/pixelpalettes/winnersData';
 
 /**
  * Pixel Palettes Event Page Component
@@ -711,44 +714,7 @@ export default function Home() {
 
                 {/* Winners Podium - Top 3 teams with special styling */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                  {[
-                    { 
-                      name: 'Silent wheels', 
-                      position: 1, 
-                      prize: '1st Place',
-                      emoji: '🥇',
-                      colors: {
-                        gradient: 'from-yellow-400 to-yellow-600',
-                        border: 'border-yellow-400/40',
-                        glow: 'rgba(234, 179, 8, 0.8)',
-                        text: 'text-yellow-400'
-                      }
-                    },
-                    { 
-                      name: 'Erorr 404', 
-                      position: 2, 
-                      prize: '2nd Place',
-                      emoji: '🥈',
-                      colors: {
-                        gradient: 'from-slate-200 to-slate-400',
-                        border: 'border-slate-300/50',
-                        glow: 'rgba(203, 213, 225, 0.8)',
-                        text: 'text-slate-200'
-                      }
-                    },
-                    { 
-                      name: 'Defenders', 
-                      position: 3, 
-                      prize: '3rd Place',
-                      emoji: '🥉',
-                      colors: {
-                        gradient: 'from-amber-600 to-amber-800',
-                        border: 'border-amber-500/50',
-                        glow: 'rgba(217, 119, 6, 0.8)',
-                        text: 'text-amber-500'
-                      }
-                    }
-                  ].map((winner, index) => (
+                  {winnersData.map((winner, index) => (
                     <motion.div
                       key={winner.position}
                       initial={{ opacity: 0, y: 30 }}
@@ -910,9 +876,7 @@ export default function Home() {
                   <h2 className="font-pixel text-3xl md:text-5xl mb-6 neon-glow">ABOUT</h2>
                   <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-8"></div>
                   <p className="font-mono-pixel text-xl md:text-2xl leading-relaxed text-gray-300 max-w-4xl mx-auto">
-                    Pixel Palettes is a creatively charged, AI-driven 24-hour hackathon that perfectly blends 
-                    technology and design. Whether you&apos;re a seasoned developer, a design enthusiast, or an AI curious mind, 
-                    this hackathon offers the perfect platform to showcase your skills.
+                    {about}
                   </p>
                 </motion.div>
 
@@ -923,38 +887,26 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="grid grid-cols-1 md:grid-cols-3 gap-8"
                 >
-                  {/* Innovate Feature */}
-                  <div className="glass modern-card rounded-2xl p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Zap className="text-pink-400" size={36} />
-                    </div>
-                    <h3 className="font-pixel text-base mb-4 text-pink-400">INNOVATE</h3>
-                    <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                      Push the boundaries of AI and create groundbreaking solutions
-                    </p>
-                  </div>
-                  
-                  {/* 24 Hours Feature */}
-                  <div className="glass modern-card rounded-2xl p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Clock className="text-cyan-400" size={36} />
-                    </div>
-                    <h3 className="font-pixel text-base mb-4 text-cyan-400">24 HOURS</h3>
-                    <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                      Intensive coding marathon with continuous mentorship and support
-                    </p>
-                  </div>
-                  
-                  {/* Compete Feature */}
-                  <div className="glass modern-card rounded-2xl p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Trophy className="text-yellow-400" size={36} />
-                    </div>
-                    <h3 className="font-pixel text-base mb-4 text-yellow-400">COMPETE</h3>
-                    <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                      Compete for exciting prizes and recognition in the tech community
-                    </p>
-                  </div>
+                  {aimData.map((item, index) => {
+                    const aimStyles = [
+                      { bg: 'from-pink-500/20 to-purple-500/20', iconColor: 'text-pink-400', Icon: Zap },
+                      { bg: 'from-cyan-500/20 to-blue-500/20', iconColor: 'text-cyan-400', Icon: Clock },
+                      { bg: 'from-yellow-500/20 to-orange-500/20', iconColor: 'text-yellow-400', Icon: Trophy },
+                    ];
+                    const style = aimStyles[index % aimStyles.length];
+                    const Icon = style.Icon;
+                    return (
+                      <div key={index} className="glass modern-card rounded-2xl p-8 text-center">
+                        <div className={`w-16 h-16 bg-gradient-to-br ${style.bg} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                          <Icon className={style.iconColor} size={36} />
+                        </div>
+                        <h3 className={`font-pixel text-base mb-4 ${style.iconColor}`}>{item.title}</h3>
+                        <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </motion.div>
               </div>
             </section>

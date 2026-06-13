@@ -9,6 +9,9 @@ import Loading from '@/components/CookCrackCapture/loadingComp';
 import { ToxicBackground } from '@/components/CookCrackCapture/ToxicBackground';
 import { timeline } from 'data/cookcrackcapture/timelineData';
 import { rulesData } from 'data/cookcrackcapture/rulesData';
+import { about } from 'data/cookcrackcapture/about';
+import { aimData } from 'data/cookcrackcapture/aim';
+import { winnersData } from 'data/cookcrackcapture/winnersData';
 import Navbar from '@/components/CookCrackCapture/Navbar';
 
 export default function Home() {
@@ -546,44 +549,7 @@ export default function Home() {
 
                 {/* Winners Podium - Top 3 teams with special styling */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                  {[
-                    { 
-                      name: 'Local Host', 
-                      position: 1, 
-                      prize: '1st Place',
-                      emoji: '🥇',
-                      colors: {
-                        gradient: 'from-yellow-400 to-yellow-600',
-                        border: 'border-yellow-400/40',
-                        glow: 'rgba(234, 179, 8, 0.8)',
-                        text: 'text-yellow-400'
-                      }
-                    },
-                    { 
-                      name: 'VanarSena', 
-                      position: 2, 
-                      prize: '2nd Place',
-                      emoji: '🥈',
-                      colors: {
-                        gradient: 'from-slate-200 to-slate-400',
-                        border: 'border-slate-300/50',
-                        glow: 'rgba(203, 213, 225, 0.8)',
-                        text: 'text-slate-200'
-                      }
-                    },
-                    { 
-                      name: 'Parv', 
-                      position: 3, 
-                      prize: '3rd Place',
-                      emoji: '🥉',
-                      colors: {
-                        gradient: 'from-amber-600 to-amber-800',
-                        border: 'border-amber-500/50',
-                        glow: 'rgba(217, 119, 6, 0.8)',
-                        text: 'text-amber-500'
-                      }
-                    }
-                  ].map((winner, index) => (
+                  {winnersData.map((winner, index) => (
                     <motion.div
                       key={winner.position}
                       initial={{ opacity: 0, y: 30 }}
@@ -745,7 +711,7 @@ export default function Home() {
                   <h2 className="font-pixel text-3xl md:text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-green-500 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]">ABOUT</h2>
                   <div className="w-16 h-0.5 bg-gradient-to-r from-green-600 to-sky-500 mx-auto mb-8"></div>
                   <p className="font-mono-pixel text-xl md:text-2xl leading-relaxed text-gray-300 max-w-4xl mx-auto">
-                    &apos;Cook Crack Capture&apos; is a thrilling 24-hour Capture the Flag cybersecurity event where participants dive into the digital underworld, solving cryptographic puzzles, uncovering hidden vulnerabilities, and securing digital assets.
+                    {about}
                   </p>
                 </motion.div>
 
@@ -764,38 +730,26 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8"
                   >
-                    {/* Innovate Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-green-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Zap className="text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.6)]" size={36} />
+                  {aimData.map((item, index) => {
+                    const aimStyles = [
+                      { bg: 'from-yellow-500/20 to-green-600/20', iconColor: 'text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.6)]', Icon: Zap },
+                      { bg: 'from-yellow-500/20 to-blue-500/20', iconColor: 'text-yellow-500 drop-shadow-[0_0_10px_rgba(234,179,8,0.6)]', Icon: Clock },
+                      { bg: 'from-green-500/20 to-blue-500/20', iconColor: 'text-green-400', Icon: GraduationCap },
+                    ];
+                    const style = aimStyles[index % aimStyles.length];
+                    const Icon = style.Icon;
+                    return (
+                      <div key={index} className="glass modern-card rounded-2xl p-8 text-center">
+                        <div className={`w-16 h-16 bg-gradient-to-br ${style.bg} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                          <Icon className={style.iconColor} size={36} />
+                        </div>
+                        <h3 className={`font-pixel text-base mb-4 ${style.iconColor}`}>{item.title}</h3>
+                        <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="font-pixel text-base mb-4 text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.6)]">HACK</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Understand network vulnerabilities, cryptography, and exploit development.
-                      </p>
-                    </div>
-
-                    {/* 3 Hours Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Clock className="text-yellow-500 drop-shadow-[0_0_10px_rgba(234,179,8,0.6)]" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-yellow-500 drop-shadow-[0_0_10px_rgba(234,179,8,0.6)]">24 HOURS</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        An intense 24-hour hacking session testing your endurance and problem-solving skills.
-                      </p>
-                    </div>
-
-                    {/* Learnings Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <GraduationCap className="text-green-400" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-green-400">DEFEND</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Learn defensive strategies by understanding how attackers compromise systems.
-                      </p>
-                    </div>
+                    );
+                  })}
                   </motion.div>
                 </motion.div>
               </div>

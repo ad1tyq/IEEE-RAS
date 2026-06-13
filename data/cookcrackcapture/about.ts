@@ -1,0 +1,1 @@
+export const about = "'Cook Crack Capture' is a thrilling 24-hour Capture the Flag cybersecurity event where participants dive into the digital underworld, solving cryptographic puzzles, uncovering hidden vulnerabilities, and securing digital assets.";
