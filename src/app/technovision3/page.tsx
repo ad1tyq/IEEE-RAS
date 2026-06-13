@@ -9,6 +9,8 @@ import Loading from '@/components/TechnoVision3/loadingComp';
 import { TechBackground } from '@/components/TechnoVision3/TechBackground';
 import { timeline } from 'data/technovision3/timelineData';
 import { rulesData } from 'data/technovision3/rulesData';
+import { about } from 'data/technovision3/about';
+import { aimData } from 'data/technovision3/aim';
 import Navbar from '@/components/TechnoVision3/Navbar';
 
 export default function Home() {
@@ -142,7 +144,7 @@ export default function Home() {
                   <h2 className="font-pixel text-3xl md:text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]">ABOUT</h2>
                   <div className="w-16 h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mb-8"></div>
                   <p className="font-mono-pixel text-xl md:text-2xl leading-relaxed text-gray-300 max-w-4xl mx-auto">
-                    &apos;TechnoVision 3.0&apos; is a thrilling 24-hour Ideathon where participants dive into the world of emerging technologies, solving real-world problems and creating innovative prototypes.
+                    {about}
                   </p>
                 </motion.div>
 
@@ -160,35 +162,26 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8"
                   >
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Zap className="text-cyan-500 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]" size={36} />
+                  {aimData.map((item, index) => {
+                    const aimStyles = [
+                      { bg: 'from-cyan-500/20 to-purple-600/20', iconColor: 'text-cyan-500 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]', Icon: Zap },
+                      { bg: 'from-cyan-500/20 to-purple-500/20', iconColor: 'text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]', Icon: Clock },
+                      { bg: 'from-cyan-500/20 to-purple-500/20', iconColor: 'text-cyan-400', Icon: GraduationCap },
+                    ];
+                    const style = aimStyles[index % aimStyles.length];
+                    const Icon = style.Icon;
+                    return (
+                      <div key={index} className="glass modern-card rounded-2xl p-8 text-center">
+                        <div className={`w-16 h-16 bg-gradient-to-br ${style.bg} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                          <Icon className={style.iconColor} size={36} />
+                        </div>
+                        <h3 className={`font-pixel text-base mb-4 ${style.iconColor}`}>{item.title}</h3>
+                        <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="font-pixel text-base mb-4 text-cyan-500 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]">IDEATE</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Brainstorm and conceptualize solutions for modern technological challenges.
-                      </p>
-                    </div>
-
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Clock className="text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]">24 HOURS</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        An intense 24-hour session testing your endurance and problem-solving skills.
-                      </p>
-                    </div>
-
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <GraduationCap className="text-cyan-400" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-cyan-400">PITCH</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Present your innovative ideas to a panel of expert judges and industry professionals.
-                      </p>
-                    </div>
+                    );
+                  })}
                   </motion.div>
                 </motion.div>
               </div>

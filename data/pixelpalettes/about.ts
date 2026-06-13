@@ -1,0 +1,1 @@
+export const about = "Pixel Palettes is a creatively charged, AI-driven 24-hour hackathon that perfectly blends technology and design. Whether you're a seasoned developer, a design enthusiast, or an AI curious mind, this hackathon offers the perfect platform to showcase your skills.";

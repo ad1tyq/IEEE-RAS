@@ -1,0 +1,1 @@
+export const about = "'TechnoVision 3.0' is a thrilling 24-hour Ideathon where participants dive into the world of emerging technologies, solving real-world problems and creating innovative prototypes.";

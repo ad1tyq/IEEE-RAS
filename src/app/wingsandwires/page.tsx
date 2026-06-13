@@ -7,6 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 //import { CosmicBackgroundDesktop, CosmicBackgroundMobile } from '@/components/WingsAndWires/CosmicBackground';
 import { CosmicBackground } from '@/components/WingsAndWires/CosmicBackground';
+import { about } from 'data/wingsandwires/about';
+import { aimData } from 'data/wingsandwires/aim';
 
 export default function Home() {
 
@@ -650,7 +652,7 @@ export default function Home() {
                   <h2 className="font-pixel text-3xl md:text-5xl mb-6 neon-glow">ABOUT</h2>
                   <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-8"></div>
                   <p className="font-mono-pixel text-xl md:text-2xl leading-relaxed text-gray-300 max-w-4xl mx-auto">
-                    &apos;Wings and Wires&apos; is an educational workshop designed to introduce participants to the fundamentals of drone technology, focusing on theoretical knowledge about the working, components, and principles behind unmanned aerial vehicles (UAVs).
+                    {about}
                   </p>
                 </motion.div>
 
@@ -669,38 +671,26 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8"
                   >
-                    {/* Innovate Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Zap className="text-pink-400" size={36} />
+                  {aimData.map((item, index) => {
+                    const aimStyles = [
+                      { bg: 'from-pink-500/20 to-purple-500/20', iconColor: 'text-pink-400', Icon: Zap },
+                      { bg: 'from-cyan-500/20 to-blue-500/20', iconColor: 'text-cyan-400', Icon: Clock },
+                      { bg: 'from-green-500/20 to-blue-500/20', iconColor: 'text-green-400', Icon: GraduationCap },
+                    ];
+                    const style = aimStyles[index % aimStyles.length];
+                    const Icon = style.Icon;
+                    return (
+                      <div key={index} className="glass modern-card rounded-2xl p-8 text-center">
+                        <div className={`w-16 h-16 bg-gradient-to-br ${style.bg} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                          <Icon className={style.iconColor} size={36} />
+                        </div>
+                        <h3 className={`font-pixel text-base mb-4 ${style.iconColor}`}>{item.title}</h3>
+                        <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="font-pixel text-base mb-4 text-pink-400">INNOVATE</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Understand drone components, how they interact, and achieve flight control.
-                      </p>
-                    </div>
-
-                    {/* 3 Hours Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Clock className="text-cyan-400" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-cyan-400">3 HOURS</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        In-depth theoretical session on drone technology, components, and flight principles.
-                      </p>
-                    </div>
-
-                    {/* Learnings Feature */}
-                    <div className="glass modern-card rounded-2xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <GraduationCap className="text-green-400" size={36} />
-                      </div>
-                      <h3 className="font-pixel text-base mb-4 text-green-400">LEARNINGS</h3>
-                      <p className="font-mono-pixel text-base text-gray-400 leading-relaxed">
-                        Explore drone technology&apos;s science and engineering from a theoretical perspective.
-                      </p>
-                    </div>
+                    );
+                  })}
                   </motion.div>
                 </motion.div>
               </div>
