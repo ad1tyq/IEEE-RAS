@@ -1,4 +1,4 @@
-iexport type Rule = {
+export type Rule = {
   id: number;
   title: string;
   points: string[];
