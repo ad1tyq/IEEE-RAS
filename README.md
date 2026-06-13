@@ -2,9 +2,9 @@
 
 The official website of IEEE RAS MUJ 🚀
 
-"## Quick Start"
+## Quick Start
 
-"### Prerequisites"
+### Prerequisites
 
 Node.js: v18.0.0 or higher
 
@@ -12,7 +12,7 @@ npm: Package manager
 
 Git: Version control
 
-"### Installation"
+### Installation
 
 Clone the repository:
 
@@ -40,7 +40,7 @@ CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY
 CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
 ```
 
-"### Development & Contributions"
+### Development & Contributions
 
 Create your own separate branch:
 
@@ -56,7 +56,8 @@ npm run dev
 
 The application will be accessible at <http://localhost:3000>.
 
-"### Technology Stack:"
+### Technology Stack:
+
 This platform follows a modern, full-stack architecture designed for seamless event management.
 
 Frontend: Next.js 15+ (App Router), TypeScript, Tailwind CSS
@@ -67,7 +68,7 @@ ORM: Prisma
 Authentication: JWT-based session management
 Code Quality: ESLint, Prettier, Husky (Git hooks)-->
 
-"### Deployment & Production"
+### Deployment & Production
 
 Building
 
@@ -79,7 +80,7 @@ npm run build
 npm run start
 ```
 
-"### Production Deployment"
+### Production Deployment
 
 Frontend: Deployed via Vercel for optimal performance and edge caching.
 
@@ -88,7 +89,7 @@ Database: Hosted on Neon.tech (Serverless PostgreSQL) for low-latency, resilient
 Docker: For containerized local environments:docker build -t event-platform .
 docker run -p 3000:3000 event-platform-->
 
-"### Contributing"
+### Contributing
 
 We welcome contributions from club members.
 Please create your own branch
