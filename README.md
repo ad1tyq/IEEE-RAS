@@ -2,6 +2,74 @@
 
 The official website of IEEE RAS MUJ 🚀
 
+<details>
+<summary>## File Tree</summary>
+
+```bash
+src/
+├─ app/
+│  ├─ cookcrackcapture/
+│  │  ├─ gallery/
+│  │  │  ├─ gallery.module.css
+│  │  │  └─ page.tsx
+│  │  ├─ resources/
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ events/
+│  │  └─ page.tsx
+│  ├─ pixelpalettes/
+│  │  ├─ judges/
+│  │  │  └─ page.tsx
+│  │  ├─ problems/
+│  │  │  └─ page.tsx
+│  │  ├─ sponsors/
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ technovision3/
+│  │  ├─ gallery/
+│  │  │  ├─ gallery.module.css
+│  │  │  └─ page.tsx
+│  │  ├─ resources/
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ unlockd/
+│  │  ├─ resources/
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ wingsandwires/
+│  │  ├─ gallery/
+│  │  │  ├─ gallery.module.css
+│  │  │  └─ page.tsx
+│  │  ├─ resources/
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ favicon.ico
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  └─ page.tsx
+├─ components/
+│  ├─ CookCrackCapture/
+│  │  ├─ CookCrackCapturePreview.tsx
+│  │  ├─ loadingComp.tsx
+│  │  ├─ Navbar.tsx
+│  │  └─ ToxicBackground.tsx
+│  ├─ TechnoVision3/
+│  │  ├─ loadingComp.tsx
+│  │  ├─ Navbar.tsx
+│  │  ├─ TechBackground.tsx
+│  │  └─ TechnoVision3Preview.tsx
+│  ├─ WingsAndWires/
+│  │  ├─ CosmicBackground.tsx
+│  │  ├─ loadingComp.tsx
+│  │  └─ WingsAndWiresPreview.tsx
+│  ├─ Footer.tsx
+│  ├─ Navbar.tsx
+│  ├─ PixelPalettesPreview.tsx
+│  └─ SubmissionForm.tsx
+└─ utils/
+   └─ animations.ts
+```
+
 ## Quick Start
 
 ### Prerequisites
