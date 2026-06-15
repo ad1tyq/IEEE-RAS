@@ -1,0 +1,169 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   unlockd-shapes.css
+   Styling that supports the WebGL hero lock (UnlockDBackground.tsx) and the
+   pinned-hero scroll intro used by page.tsx. Transform/opacity only, GPU-friendly.
+   (Reduced motion is handled inside UnlockDBackground.tsx, which renders a single
+   static frame instead of animating.)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ── WebGL hero canvas ─────────────────────────────────────────────────────────
+   Fixed, full-screen, behind the content (z-0). The glass lock + starfield render
+   here. UnlockDBackground.tsx also sets these as inline styles, so the canvas
+   still positions correctly even if this stylesheet isn't imported. */
+.unlockd-webgl-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ── Pinned-hero intro ─────────────────────────────────────────────────────────
+   The hero sticks to the top while the user scrolls through the pin region; that
+   scroll drives the lock animation (spin → fingerprint scan → unlock). Once the
+   pin releases, the lock translates up 1:1 with the page scroll, so the lock and
+   the content scroll away together as one flow.
+
+    Pin region = 100vh sticky hero + 360px of scroll-to-unlock.
+    This must stay in sync with the divisor in UnlockDBackground.tsx (360). */
+.hero-pin {
+  position: relative;
+  height: calc(100vh + 360px);
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* Small breathing space at the top of the hero content column. */
+.hero-lock-space {
+  height: clamp(24px, 8vh, 100px);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DESIGN.MD PRD ADDITIONS — Style-only. No component structure changes.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ── Hero title: UNLOCK'D — accent glow on D ──────────────────────────────
+     Using data-text split — the glitch pseudo-elements already provide a
+     cyan/blue split. Adding an enhanced shimmer on the 'D' via the existing
+     glitch structure. */
+
+/* Enhanced glitch glow for the D in UNLOCK'D */
+.glitch[data-text*="UNLOCK'D"]::before {
+  color: #00ccff;
+  text-shadow:
+    0 0 10px rgba(0, 200, 255, 0.6),
+    0 0 30px rgba(0, 150, 255, 0.3),
+    0 0 60px rgba(0, 100, 200, 0.15);
+  -webkit-text-fill-color: transparent;
+  animation: prd-d-glow 3s ease-in-out infinite;
+}
+
+@keyframes prd-d-glow {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.85; }
+}
+
+/* ── Hero title font override (Yeseva One) ─────────────────────────────── */
+.unlockd-hero-title {
+  font-family: var(--font-heading, 'Yeseva One', serif);
+  line-height: 0.95;
+}
+
+/* ── Hero subtitle (Yeseva One) ────────────────────────────────────────── */
+.unlockd-hero-subtitle {
+  font-family: var(--font-heading, 'Yeseva One', serif);
+  font-weight: 400;
+  color: var(--blue-ice, #7dd3fc);
+  letter-spacing: 0.02em;
+}
+
+/* ── Hero description (Poppins) ────────────────────────────────────────── */
+.unlockd-hero-desc {
+  font-family: var(--font-sans, 'Poppins', system-ui, sans-serif);
+  color: var(--text-secondary, #94c8e8);
+  line-height: 1.75;
+  max-width: 480px;
+}
+
+/* ── Scroll label ──────────────────────────────────────────────────────── */
+.unlockd-scroll-label {
+  font-family: var(--font-sans, 'Poppins', system-ui, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--text-muted, #4a7fa5);
+  text-transform: uppercase;
+}
+
+/* ── Section heading overline ──────────────────────────────────────────── */
+.unlockd-section-overline {
+  font-family: var(--font-sans, 'Poppins', system-ui, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-accent, #00aaff);
+  opacity: 0.8;
+}
+
+/* ── Section title ─────────────────────────────────────────────────────── */
+.unlockd-section-title {
+  font-family: var(--font-sans, 'Poppins', system-ui, sans-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #f0f8ff 40%, #7dd3fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Section heading underline ─────────────────────────────────────────── */
+.unlockd-heading-underline {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, #0057a8, #00aaff, #00d4ff);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+}
+
+/* ── Timeline header rule ──────────────────────────────────────────────── */
+.unlockd-timeline-header-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, #00d4ff, #0060ff);
+  margin: 8px auto 0;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+/* ── Timeline dot ──────────────────────────────────────────────────────── */
+.unlockd-timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4ff, #0060ff);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+  flex-shrink: 0;
+}
+
+/* ── Register card glow ────────────────────────────────────────────────── */
+.unlockd-register-card {
+  background:
+    linear-gradient(135deg,
+      rgba(2, 5, 24, 0.85) 0%,
+      rgba(1, 3, 16, 0.9) 40%,
+      rgba(0, 1, 10, 0.95) 100%
+    );
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow:
+    0 0 40px rgba(0, 212, 255, 0.08),
+    0 0 80px rgba(0, 96, 255, 0.05),
+    inset 0 1px 0 rgba(0, 212, 255, 0.15);
+}

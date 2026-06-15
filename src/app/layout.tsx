@@ -17,13 +17,14 @@
  */
 
 // Next.js font optimization for Google Fonts
-import { Inter } from 'next/font/google'
+import { Yeseva_One, Poppins, Geist } from 'next/font/google'
 
 // Global CSS styles
 import './globals.css'
 
 // Next.js metadata API for SEO and social sharing
 import type { Metadata, Viewport } from 'next'
+import { cn } from "@/lib/utils";
 
 // ========================================
 // FONT CONFIGURATION
@@ -37,11 +38,14 @@ import type { Metadata, Viewport } from 'next'
  * - Variable font weights for flexibility
  * - Display swap for better loading experience
  */
-const inter = Inter({
+const yesevaOne = Yeseva_One({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-heading',
+  weight: ['400'],
 })
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'})
 
 // ========================================
 // SEO METADATA CONFIGURATION
@@ -267,7 +271,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={inter.variable}
+      className={cn(yesevaOne.variable, "font-sans", geist.variable)}
       suppressHydrationWarning={true}
     >
       {/* 
@@ -326,7 +330,7 @@ export default function RootLayout({
         - Includes anti-aliasing for better text rendering
       */}
       <body
-        className={`${inter.className} antialiased bg-black`}
+        className={`${geist.className} antialiased bg-black`}
         suppressHydrationWarning={true}
       >
         {/* 
