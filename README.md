@@ -3,7 +3,7 @@
 The official website of IEEE RAS MUJ 🚀
 
 <details>
-<summary>## File Tree</summary>
+<summary>File Tree: </summary>
 
 ```bash
 src/
@@ -69,6 +69,7 @@ src/
 └─ utils/
    └─ animations.ts
 ```
+</details>
 
 ## Quick Start
 
