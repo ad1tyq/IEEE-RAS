@@ -266,7 +266,7 @@ export default function UnlockD() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="max-w-2xl w-full mx-auto md:mx-0 px-6 sm:px-8 lg:pl-16 text-center md:text-left relative z-10 flex flex-col items-center md:items-start"
+                className="max-w-2xl w-full mx-auto md:mx-0 px-6 sm:px-8 lg:pl-24 text-center md:text-left relative z-10 flex flex-col items-center md:items-start"
               >
                 {/* Negative space reserved for the WebGL glass lock, which is the
                     hero centerpiece now (rendered in the fixed background canvas).

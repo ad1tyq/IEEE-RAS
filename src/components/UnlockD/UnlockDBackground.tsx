@@ -308,7 +308,7 @@ export default function UnlockDBackground() {
       const w = window.innerWidth;
       const s = w < 768 ? 0.38 : w < 1200 ? 0.72 : 0.92;
       lock.scale.setScalar(s);
-      rig.position.x = w < 768 ? 0 : w < 1200 ? 1.5 : 1.95;
+      rig.position.x = w < 768 ? 0 : w < 1200 ? 1.75 : 2.3;
     };
     applyScale();
 
