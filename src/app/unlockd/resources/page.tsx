@@ -125,7 +125,6 @@ export default function UnlockDResources() {
                 transition={{ duration: 0.8 }}
                 className="text-center mb-12"
               >
-                <div className="unlockd-section-overline">RESOURCE PORTAL</div>
                 <h1
                   className="glitch font-heading text-4xl sm:text-5xl md:text-6xl mb-6 ocean-title"
                   data-text="RESOURCES"
