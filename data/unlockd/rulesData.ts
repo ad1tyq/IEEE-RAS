@@ -9,7 +9,7 @@ export const rulesData: Rule[] = [
     id: 1,
     title: "Event Overview",
     points: [
-      "Unlock'D is an immersive 36-hour progressive software development challenge designed to foster technical proficiency and practical product-building skills.",
+      "Unlock'D is an immersive 24-hour progressive software development challenge designed to foster technical proficiency and practical product-building skills.",
       "Unlike traditional hackathons, this is a guided product-building relay where teams start with a base application and progressively add features in timed rounds.",
       "The event is designed to feel practical, career-relevant, and portfolio-worthy for total beginners."
     ]

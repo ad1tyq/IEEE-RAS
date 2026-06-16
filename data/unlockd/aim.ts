@@ -5,7 +5,7 @@ export const aimData = [
         iconName: "Code",
     },
     {
-        title: "36 HOURS",
+        title: "24 HOURS",
         description: "An intensive guided product-building relay moving from foundational setup to optimization and cloud deployment.",
         iconName: "Clock",
     },

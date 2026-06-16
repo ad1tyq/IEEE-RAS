@@ -303,7 +303,7 @@ export default function UnlockD() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7, duration: 0.8 }}
                   >
-                    36-Hour Progressive Software Development Challenge
+                    24-Hour Progressive Software Development Challenge
                   </motion.p>
 
                   <motion.p
