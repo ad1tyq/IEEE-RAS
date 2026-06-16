@@ -1,1 +1,1 @@
-export const about = "'Unlock\\'D' is an immersive 36-hour software development challenge designed to introduce participants to practical product-building, focusing on full-stack engineering, database integration, and deployment through a guided, progressive feature-building relay.";
+export const about = "'Unlock'D' is an immersive 24-hour software development challenge designed to introduce participants to practical product-building, focusing on full-stack engineering, database integration, and deployment through a guided, progressive feature-building relay.";

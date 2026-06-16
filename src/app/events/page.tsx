@@ -9,6 +9,7 @@ import PixelPalettesPreview from '@/components/PixelPalettesPreview';
 import WingsAndWiresPreview from '@/components/WingsAndWires/WingsAndWiresPreview';
 import CookCrackCapturePreview from '@/components/CookCrackCapture/CookCrackCapturePreview';
 import TechnoVision3Preview from '@/components/TechnoVision3/TechnoVision3Preview';
+import UnlockDPreview from '@/components/UnlockD/UnlockDPreview';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -114,6 +115,10 @@ export default function EventsPage() {
                     ) : event.title === "Techno Vision 3.0" ? (
                       <div className="flex justify-center mb-6">
                         <TechnoVision3Preview size={80} className="opacity-90" speed={1} />
+                      </div>
+                    ) : event.title === "Unlock'D" ? (
+                      <div className="flex justify-center mb-6">
+                        <UnlockDPreview size={80} className="opacity-90" speed={1} />
                       </div>
                     ) : (
                       <div className="flex justify-center mb-6">
