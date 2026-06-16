@@ -181,7 +181,6 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
       className="text-center mb-16"
       style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
     >
-      <div className="unlockd-section-overline">IEEE RAS MUJ</div>
       <h2 className="font-heading unlockd-section-title text-3xl md:text-5xl mb-6">{children}</h2>
       <div className="unlockd-heading-underline" />
     </motion.div>
@@ -319,12 +318,12 @@ export default function UnlockD() {
 
 
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-2xl mx-auto md:mx-0 w-full"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-2xl mx-auto md:mx-0 w-auto md:w-full"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.1, duration: 0.8 }}
                 >
-                  <SpringCard className="prd-card rounded-2xl p-6 text-center group" delay={0}>
+                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0}>
                     <Calendar
                       className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
                       size={28}
@@ -334,7 +333,7 @@ export default function UnlockD() {
                     <div className="font-body text-xl text-white font-semibold">3RD &ndash; 4TH JULY</div>
                   </SpringCard>
 
-                  <SpringCard className="prd-card rounded-2xl p-6 text-center group" delay={0.08}>
+                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.08}>
                     <MapPin
                       className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
                       size={28}
@@ -384,7 +383,7 @@ export default function UnlockD() {
                       return (
                         <SpringCard
                           key={idx}
-                          className="prd-card rounded-2xl p-8 text-center group"
+                          className="prd-card rounded-2xl p-5 md:p-8 text-center group"
                           delay={idx * 0.08}
                           index={idx}
                         >
@@ -416,7 +415,7 @@ export default function UnlockD() {
                   {rulesData[0].points.map((point, idx) => (
                     <SpringCard
                       key={idx}
-                      className="prd-card rounded-xl p-6 border-l-2 border-cyan-400/40 flex items-start space-x-4 group hover:border-cyan-400/80 transition-colors duration-300"
+                      className="prd-card rounded-xl p-4 md:p-6 border-l-2 border-cyan-400/40 flex items-start space-x-4 group hover:border-cyan-400/80 transition-colors duration-300"
                       delay={idx * 0.04}
                     >
                       <div className="overview-dot flex-shrink-0 mt-2" />
@@ -427,35 +426,7 @@ export default function UnlockD() {
               </div>
             </section>
 
-            <ScanDivider />
 
-            {/* ── EVENT STRUCTURE ── */}
-            <section id="structure" className="py-24">
-              <div className="max-w-4xl mx-auto px-6">
-                <SectionHeading>EVENT STRUCTURE</SectionHeading>
-                <div className="space-y-6">
-                  {rulesData[1].points.map((point, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -24 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: '-40px' }}
-                      transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                      className="flex items-center space-x-6"
-                      style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
-                    >
-                      <div className="structure-num flex-shrink-0">{String(idx + 1).padStart(2, '0')}</div>
-                      <SpringCard
-                        className="prd-card rounded-xl p-6 flex-1 group hover:border-cyan-400/40 transition-colors duration-300"
-                        delay={0}
-                      >
-                        <p className="font-body text-base text-blue-100/70 leading-relaxed">{point}</p>
-                      </SpringCard>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
 
             <ScanDivider />
 
@@ -464,10 +435,10 @@ export default function UnlockD() {
               <div className="max-w-5xl mx-auto px-6">
                 <SectionHeading>JUDGING CRITERIA</SectionHeading>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {rulesData[2].points.map((point, idx) => (
+                  {rulesData[1].points.map((point, idx) => (
                     <SpringCard
                       key={idx}
-                      className="prd-card rounded-xl p-6 flex items-start space-x-4 group hover:border-cyan-400/30 transition-colors duration-300"
+                      className="prd-card rounded-xl p-4 md:p-6 flex items-start space-x-4 group hover:border-cyan-400/30 transition-colors duration-300"
                       delay={idx * 0.04}
                       index={idx}
                     >
@@ -483,26 +454,7 @@ export default function UnlockD() {
               </div>
             </section>
 
-            <ScanDivider />
 
-            {/* ── AI USAGE POLICY ── */}
-            <section id="ai-policy" className="py-24">
-              <div className="max-w-4xl mx-auto px-6">
-                <SectionHeading>AI USAGE POLICY</SectionHeading>
-                <div className="space-y-5">
-                  {rulesData[3].points.map((point, idx) => (
-                    <SpringCard
-                      key={idx}
-                      className="prd-card rounded-xl p-6 border-t border-cyan-400/20 flex items-start space-x-4"
-                      delay={idx * 0.04}
-                    >
-                      <div className="policy-dot flex-shrink-0 mt-2" />
-                      <p className="font-body text-base text-blue-100/70 leading-relaxed">{point}</p>
-                    </SpringCard>
-                  ))}
-                </div>
-              </div>
-            </section>
 
             <ScanDivider />
 
@@ -511,10 +463,10 @@ export default function UnlockD() {
               <div className="max-w-4xl mx-auto px-6">
                 <SectionHeading>GENERAL GUIDELINES</SectionHeading>
                 <div className="space-y-5">
-                  {rulesData[4].points.map((point, idx) => (
+                  {rulesData[2].points.map((point, idx) => (
                     <SpringCard
                       key={idx}
-                      className="prd-card rounded-xl p-6 border-t border-cyan-400/20 flex items-start space-x-4"
+                      className="prd-card rounded-xl p-4 md:p-6 border-t border-cyan-400/20 flex items-start space-x-4"
                       delay={idx * 0.04}
                     >
                       <div className="policy-dot policy-dot-blue flex-shrink-0 mt-2" />
@@ -540,7 +492,7 @@ export default function UnlockD() {
                   className="max-w-md md:w-xl w-full"
                   style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                 >
-                  <SpringCard className="register-card rounded-2xl p-10 text-center relative overflow-hidden">
+                  <SpringCard className="register-card rounded-2xl p-6 md:p-10 text-center relative overflow-hidden">
                     <div className="register-inner-glow" />
 
                     <motion.h3
@@ -608,7 +560,7 @@ export default function UnlockD() {
                       ) : (
                         <>
                           <div className="unlockd-timeline-dot mt-5" />
-                          <SpringCard className="prd-card rounded-xl p-6 flex-1 group hover:border-cyan-400/30 transition-colors duration-300">
+                          <SpringCard className="prd-card rounded-xl p-4 md:p-6 flex-1 group hover:border-cyan-400/30 transition-colors duration-300">
                             <div className="font-mono text-sm cyan-label mb-2">{item.time}</div>
                             <h4 className="font-heading text-lg md:text-xl mb-2 text-white">{item.title}</h4>
                             <p className="font-body text-sm text-blue-100/55">{item.desc}</p>

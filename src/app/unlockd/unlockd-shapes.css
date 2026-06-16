@@ -48,6 +48,12 @@
   pointer-events: none;
 }
 
+@media (max-width: 767px) {
+  .hero-lock-space {
+    height: 180px;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    DESIGN.MD PRD ADDITIONS — Style-only. No component structure changes.
    ──────────────────────────────────────────────────────────────────────────── */

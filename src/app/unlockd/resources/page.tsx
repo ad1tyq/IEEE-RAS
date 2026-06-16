@@ -183,7 +183,7 @@ export default function UnlockDResources() {
                     <motion.div
                       key={resource.id}
                       variants={cardVariants}
-                      className="prd-card rounded-2xl p-6 flex flex-col justify-between group border border-cyan-400/15 relative overflow-hidden"
+                      className="prd-card rounded-2xl p-5 md:p-6 flex flex-col justify-between group border border-cyan-400/15 relative overflow-hidden"
                       style={{
                         willChange: 'transform, opacity',
                         contain: 'paint',

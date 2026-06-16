@@ -306,7 +306,7 @@ export default function UnlockDBackground() {
     const rig = new THREE.Group(); rig.add(lock); scene.add(rig);
     const applyScale = () => {
       const w = window.innerWidth;
-      const s = w < 768 ? 0.5 : w < 1200 ? 0.72 : 0.92;
+      const s = w < 768 ? 0.38 : w < 1200 ? 0.72 : 0.92;
       lock.scale.setScalar(s);
       rig.position.x = w < 768 ? 0 : w < 1200 ? 1.5 : 1.95;
     };
@@ -354,7 +354,9 @@ export default function UnlockDBackground() {
       // page scroll once the pin releases — lock + page scroll away as ONE flow.
       const vH = 2 * Math.tan((camera.fov * Math.PI / 180) / 2) * camera.position.z;
       const exitPx = Math.max(0, st.scrollY - 360);
-      rig.position.y = -0.6 + exitPx * (vH / window.innerHeight);
+      const isMobile = window.innerWidth < 768;
+      const baseY = isMobile ? 0.8 : -0.6;
+      rig.position.y = baseY + exitPx * (vH / window.innerHeight);
       rig.position.z = 0; rig.scale.setScalar(1);
       rig.visible = rig.position.y < 4.5;
 
