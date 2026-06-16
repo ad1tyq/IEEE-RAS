@@ -285,22 +285,56 @@ export default function UnlockDBackground() {
     const haloMat = track(new THREE.SpriteMaterial({ map: haloTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.6 }));
     const halo = new THREE.Sprite(haloMat); halo.scale.set(5, 5, 1); halo.position.z = -1.2; lock.add(halo);
 
-    // ── Spatial starfield background (square stars, tinted to the blue theme) ──
+    // ── Spatial starfield background (swirling 3D cyan/blue/purple dust cloud) ──
     const starGroup = new THREE.Group();
-    const buildStars = (count: number, size: number, color: number, opacity: number) => {
-      const g = track(new THREE.BufferGeometry());
-      const pos = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        pos[i * 3] = (Math.random() - 0.5) * 48;
-        pos[i * 3 + 1] = (Math.random() - 0.5) * 28;
-        pos[i * 3 + 2] = -6 - Math.random() * 22;
+    
+    const particleCount = lowPerf ? 3000 : 6500;
+    const particleSpread = 54;
+    const dustGeometry = track(new THREE.BufferGeometry());
+    const dustVertices = [];
+    const dustColors = [];
+
+    const starColors = [
+      new THREE.Color(0x00d4ff), // Cyan
+      new THREE.Color(0x4a8ad6), // Electric blue
+      new THREE.Color(0x7c3aed), // Violet/purple
+    ];
+
+    for (let i = 0; i < particleCount; i++) {
+      let x, y, z;
+      // 40% of particles are focused in the foreground closer to the camera (depth z: -5 to 6.0)
+      // to create a rich, immersive 3D depth effect of particles floating right in front of the screen
+      if (Math.random() < 0.40) {
+        x = (Math.random() - 0.5) * 36;
+        y = (Math.random() - 0.5) * 36;
+        z = -5 + Math.random() * 11.0;
+      } else {
+        x = (Math.random() - 0.5) * particleSpread;
+        y = (Math.random() - 0.5) * particleSpread;
+        z = (Math.random() - 0.5) * particleSpread;
       }
-      g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      const m = track(new THREE.PointsMaterial({ size, color, transparent: true, opacity, sizeAttenuation: true, depthWrite: false, toneMapped: false }));
-      starGroup.add(new THREE.Points(g, m));
-    };
-    buildStars(lowPerf ? 350 : 750, 0.05, 0x6f93c8, 0.6);
-    buildStars(lowPerf ? 70 : 140, 0.09, 0xbfe0ff, 0.9);
+      dustVertices.push(x, y, z);
+
+      const col = starColors[Math.floor(Math.random() * starColors.length)];
+      dustColors.push(col.r, col.g, col.b);
+    }
+
+    dustGeometry.setAttribute('position', new THREE.Float32BufferAttribute(dustVertices, 3));
+    dustGeometry.setAttribute('color', new THREE.Float32BufferAttribute(dustColors, 3));
+
+    const dustMaterial = track(new THREE.PointsMaterial({
+      size: lowPerf ? 0.14 : 0.18,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      sizeAttenuation: true,
+      depthWrite: false,
+      toneMapped: false
+    }));
+
+    const starDust = new THREE.Points(dustGeometry, dustMaterial);
+    starDust.position.z = -5;
+    starGroup.add(starDust);
     scene.add(starGroup);
 
     const rig = new THREE.Group(); rig.add(lock); scene.add(rig);
@@ -337,7 +371,18 @@ export default function UnlockDBackground() {
       composer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    const st = { scrollY: window.scrollY, vel: 0, lastScroll: window.scrollY, mx: 0, my: 0, tmx: 0, tmy: 0, prog: 0, time: 0 };
+    const st = {
+      scrollY: window.scrollY,
+      vel: 0,
+      lastScroll: window.scrollY,
+      mx: 0,
+      my: 0,
+      tmx: 0,
+      tmy: 0,
+      prog: 0,
+      time: 0,
+      starScrollY: window.scrollY,
+    };
 
     function update(dt: number) {
       st.mx = lerp(st.mx, st.tmx, 0.2); st.my = lerp(st.my, st.tmy, 0.2);
@@ -391,7 +436,12 @@ export default function UnlockDBackground() {
       bezelMat.opacity = clamp(0.35 + 0.4 * fpLit, 0, 1); bezelMat.color.copy(fpMat.color);
       scanBarMat.color.copy(fpMat.color);
 
-      starGroup.position.x = -st.mx * 0.5; starGroup.position.y = -st.my * 0.4; starGroup.rotation.z += dt * 0.004;
+      // Starfield parallax: mouse drift + smooth scroll offset
+      st.starScrollY = lerp(st.starScrollY, st.scrollY, 0.08);
+      const starOffset = st.starScrollY * (isMobile ? 0.005 : 0.003);
+      starGroup.position.x = -st.mx * 0.5;
+      starGroup.position.y = -st.my * 0.4 + starOffset;
+      starDust.rotation.y = st.time * 0.08;
 
       if (gradePass) (gradePass.uniforms.uTime as { value: number }).value = st.time;
       if (bloomPass) bloomPass.strength = 0.42 + speed * 0.4 + open * 0.2;
@@ -410,6 +460,7 @@ export default function UnlockDBackground() {
     const drawStatic = () => {
       st.scrollY = window.scrollY; st.vel = 0;
       st.prog = clamp(st.scrollY / 360, 0, 1);
+      st.starScrollY = window.scrollY;
       update(0); renderFrame();
     };
 
