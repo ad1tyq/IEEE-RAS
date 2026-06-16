@@ -287,7 +287,7 @@ export default function UnlockD() {
                   style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                 >
                     <motion.h1
-                    className="glitch font-heading unlockd-hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 ocean-title"
+                    className="glitch font-heading unlockd-hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-6 ocean-title"
                     data-text="UNLOCK'D"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -298,7 +298,7 @@ export default function UnlockD() {
                   </motion.h1>
 
                   <motion.p
-                    className="font-heading unlockd-hero-subtitle text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3"
+                    className="font-heading unlockd-hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl mb-3"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7, duration: 0.8 }}
