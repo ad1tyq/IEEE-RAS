@@ -516,12 +516,12 @@ export default function UnlockD() {
                       Unlock Your Potential
                     </motion.h3>
 
+                    {/* className="font-body text-lg mb-6 text-blue-200/60 relative z-10" */}
                     <motion.p
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 }}
-                      className="font-body text-lg mb-6 text-blue-200/60 relative z-10"
                       className="font-body text-lg mb-2 text-blue-200/50 relative z-10"
                     >
                       Registrations are now live on Unstop
