@@ -318,7 +318,7 @@ export default function UnlockD() {
 
 
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-2xl mx-auto md:mx-0 w-auto md:w-full"
+                  className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto md:mx-0 w-auto md:w-full"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.1, duration: 0.8 }}
@@ -341,6 +341,16 @@ export default function UnlockD() {
                     />
                     <div className="font-mono text-sm mb-1 blue-label">VENUE</div>
                     <div className="font-body text-xl text-white font-semibold">ONLINE</div>
+                  </SpringCard>
+
+                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.16}>
+                    <Clock
+                      className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                      size={28}
+                      style={{ color: '#ec4899', filter: 'drop-shadow(0 0 12px #ec4899)' }}
+                    />
+                    <div className="font-mono text-sm mb-1 pink-label">DEADLINE</div>
+                    <div className="font-body text-xl text-white font-semibold">1ST JULY</div>
                   </SpringCard>
                 </motion.div>
 
@@ -512,8 +522,19 @@ export default function UnlockD() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 }}
                       className="font-body text-lg mb-6 text-blue-200/60 relative z-10"
+                      className="font-body text-lg mb-2 text-blue-200/50 relative z-10"
                     >
                       Registrations are now live on Unstop
+                    </motion.p>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.55 }}
+                      className="font-mono text-xs md:text-sm mb-8 text-cyan-400 font-semibold tracking-wider relative z-10"
+                    >
+                      DEADLINE FOR REGISTRATION: 1ST JULY
                     </motion.p>
 
                     <motion.div

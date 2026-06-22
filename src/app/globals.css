@@ -1201,6 +1201,12 @@ body {
   text-shadow: 0 0 12px rgba(0, 150, 255, 0.6);
 }
 
+.pink-label {
+  color: #ec4899;
+  text-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+}
+
+
 /* ── Section label (eyebrow) ─────────────────────────────────────────────── */
 
 .section-label {
