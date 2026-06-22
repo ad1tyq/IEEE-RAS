@@ -492,8 +492,9 @@ export default function UnlockD() {
                   className="max-w-md md:w-xl w-full"
                   style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                 >
-                  <SpringCard className="register-card rounded-2xl p-6 md:p-10 text-center relative overflow-hidden">
+                  <SpringCard className="register-card unlockd-register-card active rounded-2xl p-6 md:p-10 text-center relative overflow-hidden">
                     <div className="register-inner-glow" />
+                    <div className="unlockd-scanlines" />
 
                     <motion.h3
                       initial={{ opacity: 0, y: 20 }}
@@ -510,22 +511,41 @@ export default function UnlockD() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 }}
-                      className="font-body text-lg mb-8 text-blue-200/50 relative z-10"
+                      className="font-body text-lg mb-6 text-blue-200/60 relative z-10"
                     >
-                      Registration coming soon
+                      Registrations are now live on Unstop
                     </motion.p>
 
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
+                      transition={{ duration: 0.6, delay: 0.55 }}
+                      className="relative z-10 mb-6"
+                    >
+                      <span className="unlockd-live-badge">
+                        <span className="unlockd-live-dot" />
+                      </span>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.65 }}
                       className="relative z-10"
                     >
-                      <span className="inline-flex items-center space-x-2 font-body text-base text-blue-300/40 cursor-not-allowed select-none">
-                        <span>Click here to register</span>
-                        <ArrowRight size={16} />
-                      </span>
+                      <motion.a
+                        href="https://unstop.com/hackathons/unlockd-manipal-university-mu-jaipur-1701427"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="unlockd-register-btn group"
+                      >
+                        <span>Register on Unstop</span>
+                        <span className="unlockd-cta-dot" />
+                      </motion.a>
                     </motion.div>
                   </SpringCard>
                 </motion.div>
