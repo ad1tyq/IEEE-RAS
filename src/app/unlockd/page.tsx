@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useSpring, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { Calendar, MapPin, Code, Clock, Briefcase, CheckCircle, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -89,20 +89,25 @@ function SpringCard({
 
 // ─── Scroll Unlock Progress Indicator ────────────────────────────────────────
 function UnlockProgressHint() {
-  const [progress, setProgress] = useState(0);
+  const { scrollY } = useScroll();
+  const progress = useTransform(scrollY, [0, 360], [0, 1]);
   const [unlocked, setUnlocked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handler = () => {
-      const raw = Math.min(window.scrollY / 360, 1.0);
-      setProgress(raw);
-      if (raw >= 0.99) setUnlocked(true);
-    };
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
+    return progress.onChange((latest) => {
+      if (latest > 0 && !isVisible) setIsVisible(true);
+      if (latest === 0 && isVisible) setIsVisible(false);
+      if (latest >= 0.99 && !unlocked) setUnlocked(true);
+    });
+  }, [progress, isVisible, unlocked]);
 
-  if (progress === 0) return null;
+  const filterStr = useTransform(progress, p => `drop-shadow(0 0 8px rgba(0,212,255,${0.4 + p * 0.5}))`);
+  const pathD = useTransform(progress, p => `M 12 18 L 12 ${18 - p * 12} Q 18 ${6 - p * 10} 24 ${18 - p * 12} L 24 18`);
+  const strokeColor = useTransform(progress, p => `rgba(${Math.round(p * 100)},${Math.round(212 - p * 80)},255,0.9)`);
+  const barWidth = useTransform(progress, p => `${p * 100}%`);
+
+  if (!isVisible) return null;
 
   return (
     <motion.div
@@ -113,30 +118,28 @@ function UnlockProgressHint() {
       style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
     >
       {/* Lock icon SVG */}
-      <svg width="36" height="40" viewBox="0 0 36 40" fill="none" style={{ filter: `drop-shadow(0 0 8px rgba(0,212,255,${0.4 + progress * 0.5}))` }}>
+      <motion.svg width="36" height="40" viewBox="0 0 36 40" fill="none" style={{ filter: filterStr }}>
         {/* Body */}
         <rect x="4" y="18" width="28" height="20" rx="3" stroke="rgba(0,212,255,0.8)" strokeWidth="1.5" fill="none" />
         {/* Shackle */}
-        <path
-          d={`M 12 18 L 12 ${18 - progress * 12} Q 18 ${6 - progress * 10} 24 ${18 - progress * 12} L 24 18`}
-          stroke={`rgba(${Math.round(progress*100)},${Math.round(212 - progress*80)},255,0.9)`}
+        <motion.path
+          d={pathD}
+          stroke={strokeColor}
           strokeWidth="2"
           fill="none"
           strokeLinecap="round"
         />
-      </svg>
+      </motion.svg>
       {/* Progress bar */}
       <div style={{ width: 36, height: 3, background: 'rgba(0,212,255,0.15)', borderRadius: 2, overflow: 'hidden' }}>
-        <div
+        <motion.div
           style={{
             height: '100%',
-            width: `${progress * 100}%`,
+            width: barWidth,
             background: unlocked
               ? 'linear-gradient(90deg, #00d4ff, #7c3aed)'
               : 'rgba(0,212,255,0.8)',
             borderRadius: 2,
-            transition: 'width 0.1s',
-            willChange: 'width',
           }}
         />
       </div>
@@ -259,113 +262,113 @@ export default function UnlockD() {
 
             {/* ── HERO (pinned: stays put while scroll drives the unlock, then releases) ── */}
             <div className="hero-pin">
-            <section className="hero-sticky min-h-screen flex items-center justify-center md:justify-start relative pt-32 md:pt-40 overflow-hidden">
-              <div className="hero-glow" />
+              <section className="hero-sticky min-h-screen flex items-center justify-center md:justify-start relative pt-32 md:pt-40 overflow-hidden">
+                <div className="hero-glow" />
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                className="max-w-2xl w-full mx-auto md:mx-0 px-6 sm:px-8 lg:pl-24 text-center md:text-left relative z-10 flex flex-col items-center md:items-start"
-              >
-                {/* Negative space reserved for the WebGL glass lock, which is the
-                    hero centerpiece now (rendered in the fixed background canvas).
-                    Replaces the old <GlassOrb /> so the two don't compete. */}
                 <motion.div
-                  aria-hidden
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 1.2, ease: 'easeOut' }}
-                  className="mb-8 hero-lock-space"
-                />
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="mb-12"
-                  style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
+                  transition={{ duration: 0.8 }}
+                  className="max-w-2xl w-full mx-auto md:mx-0 px-6 sm:px-8 lg:pl-24 text-center md:text-left relative z-10 flex flex-col items-center md:items-start"
                 >
+                  {/* Negative space reserved for the WebGL glass lock, which is the
+                    hero centerpiece now (rendered in the fixed background canvas).
+                    Replaces the old <GlassOrb /> so the two don't compete. */}
+                  <motion.div
+                    aria-hidden
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1.2, ease: 'easeOut' }}
+                    className="mb-8 hero-lock-space"
+                  />
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="mb-12"
+                    style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
+                  >
                     <motion.h1
-                    className="glitch font-heading unlockd-hero-title text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wider mb-6 ocean-title"
-                    data-text="UNLOCK'D"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.4 }}
-                    style={{ willChange: 'transform, opacity' }}
-                  >
-                    UNLOCK&apos;D
-                  </motion.h1>
+                      className="glitch font-heading unlockd-hero-title text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wider mb-6 ocean-title"
+                      data-text="UNLOCK'D"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1, delay: 0.4 }}
+                      style={{ willChange: 'transform, opacity' }}
+                    >
+                      UNLOCK&apos;D
+                    </motion.h1>
 
-                  <motion.p
-                    className="font-heading unlockd-hero-subtitle text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3"
+                    <motion.p
+                      className="font-heading unlockd-hero-subtitle text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.7, duration: 0.8 }}
+                    >
+                      24-Hour Progressive Software Development Challenge
+                    </motion.p>
+
+                    <motion.p
+                      className="font-body unlockd-hero-desc text-base md:text-lg max-w-2xl mx-auto md:mx-0"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.9, duration: 0.8 }}
+                    >
+                      A guided product-building relay from foundational setup to cloud deployment.
+                    </motion.p>
+                  </motion.div>
+
+
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto md:mx-0 w-auto md:w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.1, duration: 0.8 }}
+                  >
+                    <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0}>
+                      <Calendar
+                        className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                        size={28}
+                        style={{ color: '#00d4ff', filter: 'drop-shadow(0 0 12px #00d4ff)' }}
+                      />
+                      <div className="font-mono text-sm mb-1 cyan-label">DATE</div>
+                      <div className="font-body text-xl text-white font-semibold">3RD &ndash; 4TH JULY</div>
+                    </SpringCard>
+
+                    <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.08}>
+                      <MapPin
+                        className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                        size={28}
+                        style={{ color: '#0096ff', filter: 'drop-shadow(0 0 12px #0096ff)' }}
+                      />
+                      <div className="font-mono text-sm mb-1 blue-label">VENUE</div>
+                      <div className="font-body text-xl text-white font-semibold">ONLINE</div>
+                    </SpringCard>
+
+                    <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.16}>
+                      <Clock
+                        className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                        size={28}
+                        style={{ color: '#ec4899', filter: 'drop-shadow(0 0 12px #ec4899)' }}
+                      />
+                      <div className="font-mono text-sm mb-1 pink-label">DEADLINE</div>
+                      <div className="font-body text-xl text-white font-semibold">2ND JULY</div>
+                    </SpringCard>
+                  </motion.div>
+
+                  <motion.div
+                    className="scroll-cue"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7, duration: 0.8 }}
+                    whileInView={{ opacity: 1 }}
+                    style={{ willChange: 'transform' }}
                   >
-                    24-Hour Progressive Software Development Challenge
-                  </motion.p>
-
-                  <motion.p
-                    className="font-body unlockd-hero-desc text-base md:text-lg max-w-2xl mx-auto md:mx-0"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.9, duration: 0.8 }}
-                  >
-                    A guided product-building relay from foundational setup to cloud deployment.
-                  </motion.p>
+                    <div className="scroll-cue-inner">&darr;</div>
+                  </motion.div>
                 </motion.div>
-
-
-                <motion.div
-                  className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto md:mx-0 w-auto md:w-full"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.1, duration: 0.8 }}
-                >
-                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0}>
-                    <Calendar
-                      className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
-                      size={28}
-                      style={{ color: '#00d4ff', filter: 'drop-shadow(0 0 12px #00d4ff)' }}
-                    />
-                    <div className="font-mono text-sm mb-1 cyan-label">DATE</div>
-                    <div className="font-body text-xl text-white font-semibold">3RD &ndash; 4TH JULY</div>
-                  </SpringCard>
-
-                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.08}>
-                    <MapPin
-                      className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
-                      size={28}
-                      style={{ color: '#0096ff', filter: 'drop-shadow(0 0 12px #0096ff)' }}
-                    />
-                    <div className="font-mono text-sm mb-1 blue-label">VENUE</div>
-                    <div className="font-body text-xl text-white font-semibold">ONLINE</div>
-                  </SpringCard>
-
-                  <SpringCard className="prd-card rounded-2xl p-5 md:p-6 text-center group" delay={0.16}>
-                    <Clock
-                      className="mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
-                      size={28}
-                      style={{ color: '#ec4899', filter: 'drop-shadow(0 0 12px #ec4899)' }}
-                    />
-                    <div className="font-mono text-sm mb-1 pink-label">DEADLINE</div>
-                    <div className="font-body text-xl text-white font-semibold">1ST JULY</div>
-                  </SpringCard>
-                </motion.div>
-
-                <motion.div
-                  className="scroll-cue"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  style={{ willChange: 'transform' }}
-                >
-                  <div className="scroll-cue-inner">&darr;</div>
-                </motion.div>
-              </motion.div>
-            </section>
+              </section>
             </div>
 
             <ScanDivider />
@@ -374,7 +377,7 @@ export default function UnlockD() {
             <section id="about" className="pt-24 pb-8">
               <div className="max-w-6xl mx-auto px-6">
                 <SectionHeading>ABOUT</SectionHeading>
-                  <motion.p
+                <motion.p
                   className="font-body text-xl md:text-2xl leading-relaxed text-blue-100/70 max-w-4xl mx-auto text-center"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}

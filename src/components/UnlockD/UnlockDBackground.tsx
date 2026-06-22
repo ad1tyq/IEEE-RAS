@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
@@ -55,7 +55,7 @@ export default function UnlockDBackground() {
       (navAny.deviceMemory ?? 8) <= 4 ||
       window.innerWidth < 768;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, lowPerf ? 1.5 : 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, lowPerf ? 1 : 1.5);
     const useBloom = !lowPerf;
     const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -115,7 +115,7 @@ export default function UnlockDBackground() {
     envTrash.forEach((d) => d.dispose());
 
     // Photoreal upgrade if public/env.hdr exists.
-    new RGBELoader().load(
+    new HDRLoader().load(
       '/env.hdr',
       (hdr) => {
         if (disposed) { hdr.dispose(); return; }
@@ -288,7 +288,7 @@ export default function UnlockDBackground() {
     // ── Spatial starfield background (swirling 3D cyan/blue/purple dust cloud) ──
     const starGroup = new THREE.Group();
     
-    const particleCount = lowPerf ? 3000 : 6500;
+    const particleCount = lowPerf ? 800 : 2500;
     const particleSpread = 54;
     const dustGeometry = track(new THREE.BufferGeometry());
     const dustVertices = [];
