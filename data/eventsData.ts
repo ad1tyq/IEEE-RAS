@@ -35,18 +35,17 @@ export const eventsData = {
       status: "completed",
       year: "2026",
     },
-  ],
-  upcoming: [
     {
       id: "4a",
       title: "Unlock'D",
       description:
         "An immersive 24-hour progressive software development challenge designed to bridge the gap between theory and practice.",
       href: "/unlockd",
-      status: "upcoming",
+      status: "completed",
       year: "2026",
     },
   ],
+  upcoming: [],
 };
 
 // 1. Combine your event arrays into a single list for rendering.
