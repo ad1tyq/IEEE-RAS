@@ -188,8 +188,10 @@ export const eventConfig = {
       "[  1.001110] Reached target lowkey-linux.event — Welcome.",
     ],
   },
-} as const;
+};
 ```
+
+Note: `eventConfig` is a plain object (no `as const`) so its arrays stay mutable and assignable to component props (`string[]`, `{q,a}[]`, etc.) in later tasks. This matches repo convention (`data/unlockd/*`).
 
 - [ ] **Step 2: Create `data/lowkeylinux/timelineData.ts`**
 
