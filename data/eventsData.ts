@@ -48,7 +48,7 @@ export const eventsData = {
     },
     {
       id: "5a",
-      title: "Loowkey Linux",
+      title: "LOWKEY-LINUX",
       description:
         "System Override: The Linux Lockdown — a single-day bootcamp + simulated server rescue competition for absolute beginners.",
       href: "/lowkey-linux",

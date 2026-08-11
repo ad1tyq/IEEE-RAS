@@ -121,7 +121,7 @@ export default function EventsPage() {
                       <div className="flex justify-center mb-6">
                         <UnlockDPreview size={80} className="opacity-90" speed={1} />
                       </div>
-                    ) : event.title === "Loowkey Linux" ? (
+                    ) : event.title === "LOWKEY-LINUX" ? (
                       <div className="flex justify-center mb-6">
                         <LoowkeyLinuxPreview size={80} className="opacity-90" speed={1} />
                       </div>
