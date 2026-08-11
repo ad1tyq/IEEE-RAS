@@ -82,7 +82,6 @@ export default function LoowkeyLinuxPage() {
               <div className="ll-hero-meta">
                 <span className="ll-chip">{eventConfig.date}</span>
                 <span className="ll-chip">{eventConfig.location}</span>
-                <span className="ll-chip">hybrid event</span>
               </div>
               <div className="ll-hero-ctas">
                 <a className="ll-btn ll-btn-primary" href="#register">
