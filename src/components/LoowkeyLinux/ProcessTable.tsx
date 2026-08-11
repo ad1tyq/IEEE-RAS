@@ -102,7 +102,7 @@ export default function ProcessTable() {
 }
 
 function timeWindowMatches(time: string, now: Date): boolean {
-  const [hourStr, minuteStr] = time.split(":");
+  const [hourStr] = time.split(":");
   const hour = parseInt(hourStr, 10) % 12;
   const isPm = time.includes("PM");
   const nowHour = now.getHours();
