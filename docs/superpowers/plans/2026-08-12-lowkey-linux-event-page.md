@@ -1477,8 +1477,8 @@ export default function LoowkeyLinuxPage() {
       className={`${jetbrains.variable} ${plexSans.variable} ${plexMono.variable} ll-page`}
     >
       <div className="ll-crt" aria-hidden />
-      {!bootDone && (
-        <AnimatePresence>
+      <AnimatePresence>
+        {!bootDone && (
           <BootSequence
             lines={eventConfig.boot.lines}
             onComplete={() => {
@@ -1486,8 +1486,8 @@ export default function LoowkeyLinuxPage() {
               setBootDone(true);
             }}
           />
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
       {bootDone && (
         <motion.main
           initial={{ opacity: 0 }}
