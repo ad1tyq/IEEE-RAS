@@ -1259,18 +1259,21 @@ export function FaqSection({
             className="ll-faq-q"
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
+            aria-controls={`faq-a-${i}`}
           >
             <span>
-              <span style={{ color: "var(--ll-signal-amber-dim)", marginRight: 12 }}>
+              <span aria-hidden style={{ color: "var(--ll-signal-amber-dim)", marginRight: 12 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               {item.q}
             </span>
-            <span style={{ color: "var(--ll-signal-amber)" }}>{open === i ? "−" : "+"}</span>
+            <span aria-hidden style={{ color: "var(--ll-signal-amber)" }}>{open === i ? "−" : "+"}</span>
           </button>
           <AnimatePresence initial={false}>
             {open === i && (
               <motion.div
+                id={`faq-a-${i}`}
+                role="region"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -1310,7 +1313,9 @@ git commit -m "feat(lowkey-linux): add man-page and faq components"
 import { useEffect, useState } from "react";
 import { eventConfig } from "data/lowkeylinux/content";
 
-const EVENT_ISO = "2026-08-16T10:30:00";
+// Event starts 10:30 AM IST (MUJ campus is in India). Explicit offset avoids
+// viewer-local timezone drift in the countdown.
+const EVENT_ISO = "2026-08-16T10:30:00+05:30";
 
 export default function RegisterBanner() {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
@@ -1318,22 +1323,28 @@ export default function RegisterBanner() {
   useEffect(() => {
     const update = () => {
       const ms = new Date(EVENT_ISO).getTime() - Date.now();
-      setDaysLeft(Math.max(0, Math.ceil(ms / 86_400_000)));
+      if (ms <= 0) {
+        setDaysLeft(-1);
+        return;
+      }
+      setDaysLeft(Math.ceil(ms / 86_400_000));
     };
     update();
     const id = setInterval(update, 60_000);
     return () => clearInterval(id);
   }, []);
 
-  const urgent = daysLeft !== null && daysLeft < 3;
+  const urgent = daysLeft !== null && daysLeft >= 0 && daysLeft < 3;
 
   return (
     <section id="register" className="ll-register">
       {daysLeft !== null && (
         <div className={`ll-countdown ${urgent ? "urgent" : ""}`}>
-          {daysLeft === 0
-            ? "registration closes today"
-            : `registration closes in ${daysLeft} day${daysLeft === 1 ? "" : "s"}`}
+          {daysLeft < 0
+            ? "registration closed"
+            : daysLeft === 0
+              ? "registration closes today"
+              : `registration closes in ${daysLeft} day${daysLeft === 1 ? "" : "s"}`}
         </div>
       )}
       <h2 className="ll-register-title">
@@ -1367,9 +1378,9 @@ git commit -m "feat(lowkey-linux): add register banner with countdown"
 export default function Footer() {
   const links = [
     { cmd: "cat contact.txt", href: "mailto:ieee.ras.muj@gmail.com", label: "ieee.ras.muj@gmail.com" },
-    { cmd: "./instagram.sh", href: "https://instagram.com/ieeeras.muj", label: "@ieeeras.muj" },
-    { cmd: "./linkedin.sh", href: "https://linkedin.com/company/ieee-ras-muj", label: "IEEE RAS MUJ" },
-    { cmd: "cat coc.txt", href: "/code-of-conduct", label: "code of conduct" },
+    { cmd: "./instagram.sh", href: "https://www.instagram.com/ieeerasmuj/", label: "@ieeerasmuj" },
+    { cmd: "./linkedin.sh", href: "https://www.linkedin.com/company/ieee-ras-muj/", label: "IEEE RAS MUJ" },
+    { cmd: "cat events.txt", href: "/events", label: "more events" },
   ];
 
   return (
@@ -1387,6 +1398,7 @@ export default function Footer() {
         ))}
         <div className="ll-footer-line">
           <span className="ll-footer-prompt">user@lowkey:~$</span>
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
           <span>echo "© 2026 IEEE RAS MUJ"</span>
         </div>
       </div>
