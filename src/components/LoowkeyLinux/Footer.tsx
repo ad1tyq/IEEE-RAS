@@ -1,9 +1,9 @@
 export default function Footer() {
   const links = [
     { cmd: "cat contact.txt", href: "mailto:ieee.ras.muj@gmail.com", label: "ieee.ras.muj@gmail.com" },
-    { cmd: "./instagram.sh", href: "https://instagram.com/ieeeras.muj", label: "@ieeeras.muj" },
-    { cmd: "./linkedin.sh", href: "https://linkedin.com/company/ieee-ras-muj", label: "IEEE RAS MUJ" },
-    { cmd: "cat coc.txt", href: "/code-of-conduct", label: "code of conduct" },
+    { cmd: "./instagram.sh", href: "https://www.instagram.com/ieeerasmuj/", label: "@ieeerasmuj" },
+    { cmd: "./linkedin.sh", href: "https://www.linkedin.com/company/ieee-ras-muj/", label: "IEEE RAS MUJ" },
+    { cmd: "cat events.txt", href: "/events", label: "more events" },
   ];
 
   return (
