@@ -315,7 +315,7 @@ git commit -m "feat(lowkey-linux): add content and schedule config"
 .ll-crt {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 60;
   pointer-events: none;
   background:
     repeating-linear-gradient(
@@ -371,8 +371,8 @@ git commit -m "feat(lowkey-linux): add content and schedule config"
 .ll-nav-links a:hover {
   color: var(--ll-signal-cyan);
 }
-.ll-nav-register {
-  color: var(--ll-signal-amber) !important;
+.ll-nav-links .ll-nav-register {
+  color: var(--ll-signal-amber);
 }
 .ll-nav-toggle {
   display: none;
@@ -866,6 +866,23 @@ git commit -m "feat(lowkey-linux): add content and schedule config"
 .ll-footer-prompt {
   color: var(--ll-signal-amber);
 }
+
+/* ── Reduced motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ll-hero-cursor,
+  .ll-boot-cursor {
+    animation: none;
+  }
+  .ll-table tr.state-r td {
+    animation: none;
+  }
+  .ll-btn,
+  .ll-obj-card,
+  .ll-nav-links a,
+  .ll-nav-toggle {
+    transition: none;
+  }
+}
 ```
 
 - [ ] **Step 2: Commit**
@@ -900,20 +917,20 @@ export default function BootSequence({
   const [typed, setTyped] = useState<string[]>(lines.map(() => ""));
   const [skipLabel, setSkipLabel] = useState(false);
   const completedRef = useRef(false);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       finish(200);
       return;
     }
-    let cancelled = false;
     (async () => {
       for (let i = 0; i < lines.length; i++) {
-        if (cancelled) return;
+        if (cancelledRef.current) return;
         await sleep(120 + Math.random() * 380);
         const line = lines[i];
         for (let c = 0; c <= line.length; c++) {
-          if (cancelled) return;
+          if (cancelledRef.current) return;
           setTyped((prev) => prev.map((t, idx) => (idx === i ? line.slice(0, c) : t)));
           await sleep(30 + Math.random() * 12);
         }
@@ -921,7 +938,7 @@ export default function BootSequence({
       finish(400);
     })();
     return () => {
-      cancelled = true;
+      cancelledRef.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lines]);
@@ -938,6 +955,7 @@ export default function BootSequence({
   function finish(ms: number) {
     if (completedRef.current) return;
     completedRef.current = true;
+    cancelledRef.current = true;
     setTyped(lines.map((l) => l));
     setTimeout(() => {
       onComplete();
@@ -1074,6 +1092,7 @@ git commit -m "feat(lowkey-linux): add navbar component"
 
 import { useEffect, useState } from "react";
 import { schedule, type ScheduleRow } from "data/lowkeylinux/timelineData";
+import { eventConfig } from "data/lowkeylinux/content";
 
 const STATE_LABEL: Record<ScheduleRow["state"], string> = {
   R: "running",
@@ -1089,18 +1108,16 @@ export default function ProcessTable() {
     return () => clearInterval(id);
   }, []);
 
-  // Simple live detection: state R for the row whose time window matches the
-  // current HH:MM (on the event day). Falls back to all S otherwise.
-  const rows = schedule.map((row) => {
-    if (row.state === "R") {
-      const windowMatch = timeWindowMatches(row.time, now);
-      return windowMatch ? row : { ...row, state: "S" as const };
-    }
-    return row;
-  });
+  // Live detection: a row whose time window matches the current hour is
+  // promoted to state R (running). Otherwise the row keeps its scheduled state.
+  const rows = schedule.map((row) =>
+    timeWindowMatches(row.time, now)
+      ? { ...row, state: "R" as const }
+      : row
+  );
 
   const sessionCount = schedule.length;
-  const phaseCount = 2;
+  const phaseCount = eventConfig.phases.length;
   const runningCount = rows.filter((r) => r.state === "R").length;
 
   return (
@@ -1117,12 +1134,12 @@ export default function ProcessTable() {
         <table className="ll-table">
           <thead>
             <tr>
-              <th>PID</th>
-              <th>USER</th>
-              <th>CPU%</th>
-              <th>STATE</th>
-              <th>TIME</th>
-              <th>COMMAND</th>
+              <th scope="col">PID</th>
+              <th scope="col">USER</th>
+              <th scope="col">CPU%</th>
+              <th scope="col">STATE</th>
+              <th scope="col">TIME</th>
+              <th scope="col">COMMAND</th>
             </tr>
           </thead>
           <tbody>
@@ -1161,7 +1178,7 @@ export default function ProcessTable() {
               </span>
               <span className={`state-${r.state.toLowerCase()}`}>
                 <span className="ll-state-dot" aria-hidden />
-                {r.state}
+                {r.state} · {STATE_LABEL[r.state]}
               </span>
             </div>
             <div className="ll-card-command">{r.command}</div>
@@ -1174,11 +1191,11 @@ export default function ProcessTable() {
 }
 
 function timeWindowMatches(time: string, now: Date): boolean {
-  const [hourStr, minuteStr] = time.split(":");
+  const [hourStr] = time.split(":");
   const hour = parseInt(hourStr, 10) % 12;
   const isPm = time.includes("PM");
   const nowHour = now.getHours();
-  return nowHour === hour + (isPm && hour !== 12 ? 12 : 0);
+  return nowHour === hour + (isPm ? 12 : 0);
 }
 ```
 
