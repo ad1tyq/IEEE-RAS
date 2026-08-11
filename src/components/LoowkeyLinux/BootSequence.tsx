@@ -13,20 +13,20 @@ export default function BootSequence({
   const [typed, setTyped] = useState<string[]>(lines.map(() => ""));
   const [skipLabel, setSkipLabel] = useState(false);
   const completedRef = useRef(false);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       finish(200);
       return;
     }
-    let cancelled = false;
     (async () => {
       for (let i = 0; i < lines.length; i++) {
-        if (cancelled) return;
+        if (cancelledRef.current) return;
         await sleep(120 + Math.random() * 380);
         const line = lines[i];
         for (let c = 0; c <= line.length; c++) {
-          if (cancelled) return;
+          if (cancelledRef.current) return;
           setTyped((prev) => prev.map((t, idx) => (idx === i ? line.slice(0, c) : t)));
           await sleep(30 + Math.random() * 12);
         }
@@ -34,7 +34,7 @@ export default function BootSequence({
       finish(400);
     })();
     return () => {
-      cancelled = true;
+      cancelledRef.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lines]);
@@ -51,6 +51,7 @@ export default function BootSequence({
   function finish(ms: number) {
     if (completedRef.current) return;
     completedRef.current = true;
+    cancelledRef.current = true;
     setTyped(lines.map((l) => l));
     setTimeout(() => {
       onComplete();
