@@ -23,12 +23,12 @@ export default function BootSequence({
     (async () => {
       for (let i = 0; i < lines.length; i++) {
         if (cancelledRef.current) return;
-        await sleep(120 + Math.random() * 380);
+        await sleep(30 + Math.random() * 90);
         const line = lines[i];
         for (let c = 0; c <= line.length; c++) {
           if (cancelledRef.current) return;
           setTyped((prev) => prev.map((t, idx) => (idx === i ? line.slice(0, c) : t)));
-          await sleep(30 + Math.random() * 12);
+          await sleep(8 + Math.random() * 5);
         }
       }
       finish(400);
