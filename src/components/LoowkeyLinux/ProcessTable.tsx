@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { schedule, type ScheduleRow } from "data/lowkeylinux/timelineData";
+import { eventConfig } from "data/lowkeylinux/content";
 
 const STATE_LABEL: Record<ScheduleRow["state"], string> = {
   R: "running",
@@ -17,18 +18,16 @@ export default function ProcessTable() {
     return () => clearInterval(id);
   }, []);
 
-  // Simple live detection: state R for the row whose time window matches the
-  // current HH:MM (on the event day). Falls back to all S otherwise.
-  const rows = schedule.map((row) => {
-    if (row.state === "R") {
-      const windowMatch = timeWindowMatches(row.time, now);
-      return windowMatch ? row : { ...row, state: "S" as const };
-    }
-    return row;
-  });
+  // Live detection: a row whose time window matches the current hour is
+  // promoted to state R (running). Otherwise the row keeps its scheduled state.
+  const rows = schedule.map((row) =>
+    timeWindowMatches(row.time, now)
+      ? { ...row, state: "R" as const }
+      : row
+  );
 
   const sessionCount = schedule.length;
-  const phaseCount = 2;
+  const phaseCount = eventConfig.phases.length;
   const runningCount = rows.filter((r) => r.state === "R").length;
 
   return (
@@ -45,12 +44,12 @@ export default function ProcessTable() {
         <table className="ll-table">
           <thead>
             <tr>
-              <th>PID</th>
-              <th>USER</th>
-              <th>CPU%</th>
-              <th>STATE</th>
-              <th>TIME</th>
-              <th>COMMAND</th>
+              <th scope="col">PID</th>
+              <th scope="col">USER</th>
+              <th scope="col">CPU%</th>
+              <th scope="col">STATE</th>
+              <th scope="col">TIME</th>
+              <th scope="col">COMMAND</th>
             </tr>
           </thead>
           <tbody>
@@ -89,7 +88,7 @@ export default function ProcessTable() {
               </span>
               <span className={`state-${r.state.toLowerCase()}`}>
                 <span className="ll-state-dot" aria-hidden />
-                {r.state}
+                {r.state} · {STATE_LABEL[r.state]}
               </span>
             </div>
             <div className="ll-card-command">{r.command}</div>
@@ -106,5 +105,5 @@ function timeWindowMatches(time: string, now: Date): boolean {
   const hour = parseInt(hourStr, 10) % 12;
   const isPm = time.includes("PM");
   const nowHour = now.getHours();
-  return nowHour === hour + (isPm && hour !== 12 ? 12 : 0);
+  return nowHour === hour + (isPm ? 12 : 0);
 }
