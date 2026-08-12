@@ -35,40 +35,32 @@ const plexMono = IBM_Plex_Mono({
 
 export default function LoowkeyLinuxPage() {
   const [bootDone, setBootDone] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
+  // Read the session flag after the first paint (deferred) so SSR always
+  // renders the boot overlay (first paint is already --bg-void dark, never
+  // white — PRD §2.1) without a hydration mismatch. On a same-session reload
+  // the flag is set, so the overlay simply fades out instead of replaying.
+  // The flag is set at mount start (not completion) so a skipped or
+  // interrupted boot still prevents replay (PRD §4.7).
   useEffect(() => {
-    setMounted(true);
-    const hasBooted = sessionStorage.getItem("llBooted");
-    if (hasBooted) setBootDone(true);
+    const t = setTimeout(() => {
+      if (sessionStorage.getItem("llBooted")) {
+        setBootDone(true);
+      } else {
+        sessionStorage.setItem("llBooted", "true");
+      }
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <div
       id="top"
       className={`${jetbrains.variable} ${plexSans.variable} ${plexMono.variable} ll-page`}
     >
-      <div className="ll-crt" aria-hidden />
-      <AnimatePresence>
-        {!bootDone && (
-          <BootSequence
-            lines={eventConfig.boot.lines}
-            onComplete={() => {
-              sessionStorage.setItem("llBooted", "true");
-              setBootDone(true);
-            }}
-          />
-        )}
-      </AnimatePresence>
-      {bootDone && (
-        <motion.main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          style={{ position: "relative", zIndex: 2 }}
-        >
+      {/* Hero is mounted underneath the overlay the whole time so the reveal is
+          the overlay animating away, never a pop-in (PRD §2.6). */}
+      <main style={{ position: "relative", zIndex: 2 }}>
           <Navbar />
 
           {/* ── HERO ── */}
@@ -204,8 +196,16 @@ export default function LoowkeyLinuxPage() {
           <RegisterBanner />
 
           <Footer />
-        </motion.main>
-      )}
+        </main>
+
+      <AnimatePresence>
+        {!bootDone && (
+          <BootSequence
+            lines={eventConfig.boot.lines}
+            onComplete={() => setBootDone(true)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
