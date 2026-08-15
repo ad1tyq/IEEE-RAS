@@ -8,7 +8,7 @@ export const eventConfig = {
   dateShort: "16 AUG",
   location: "MUJ Campus",
   // Placeholder — replace with the real registration form URL when available.
-  registerUrl: "#register",
+  registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLScANoro9-Y4wdZ7nP-4bO-D-OE9vILH-4N_JCl9vq4UB-5nzA/viewform?usp=publish-editor",
   about: {
     synopsis:
       "Take freshmen from zero terminal experience to full system control in one day — a hands-on CLI bootcamp followed by a simulated server rescue competition.",
