@@ -10,6 +10,7 @@ import WingsAndWiresPreview from '@/components/WingsAndWires/WingsAndWiresPrevie
 import CookCrackCapturePreview from '@/components/CookCrackCapture/CookCrackCapturePreview';
 import TechnoVision3Preview from '@/components/TechnoVision3/TechnoVision3Preview';
 import UnlockDPreview from '@/components/UnlockD/UnlockDPreview';
+import LoowkeyLinuxPreview from '@/components/LoowkeyLinux/LoowkeyLinuxPreview';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -119,6 +120,10 @@ export default function EventsPage() {
                     ) : event.title === "Unlock'D" ? (
                       <div className="flex justify-center mb-6">
                         <UnlockDPreview size={80} className="opacity-90" speed={1} />
+                      </div>
+                    ) : event.title === "LOWKEY-LINUX" ? (
+                      <div className="flex justify-center mb-6">
+                        <LoowkeyLinuxPreview size={80} className="opacity-90" speed={1} />
                       </div>
                     ) : (
                       <div className="flex justify-center mb-6">

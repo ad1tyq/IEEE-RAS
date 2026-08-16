@@ -35,14 +35,23 @@ export const eventsData = {
       status: "completed",
       year: "2026",
     },
-  ],
-  upcoming: [
     {
       id: "4a",
       title: "Unlock'D",
       description:
         "An immersive 24-hour progressive software development challenge designed to bridge the gap between theory and practice.",
       href: "/unlockd",
+      status: "completed",
+      year: "2026",
+    },
+  ],
+  upcoming: [
+    {
+      id: "5a",
+      title: "LOWKEY-LINUX",
+      description:
+        "System Override: The Linux Lockdown — a single-day bootcamp + simulated server rescue competition for absolute beginners.",
+      href: "/lowkey-linux",
       status: "upcoming",
       year: "2026",
     },
