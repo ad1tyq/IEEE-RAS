@@ -11,6 +11,7 @@ import CookCrackCapturePreview from '@/components/CookCrackCapture/CookCrackCapt
 import TechnoVision3Preview from '@/components/TechnoVision3/TechnoVision3Preview';
 import UnlockDPreview from '@/components/UnlockD/UnlockDPreview';
 import LoowkeyLinuxPreview from '@/components/LoowkeyLinux/LoowkeyLinuxPreview';
+import BeyondTheFramePreview from '@/components/BeyondTheFrame/BeyondTheFramePreview';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -124,6 +125,10 @@ export default function EventsPage() {
                     ) : event.title === "LOWKEY-LINUX" ? (
                       <div className="flex justify-center mb-6">
                         <LoowkeyLinuxPreview size={80} className="opacity-90" speed={1} />
+                      </div>
+                    ) : event.title === "Beyond The Frame" ? (
+                      <div className="flex justify-center mb-6">
+                        <BeyondTheFramePreview size={80} className="opacity-90" speed={1} />
                       </div>
                     ) : (
                       <div className="flex justify-center mb-6">

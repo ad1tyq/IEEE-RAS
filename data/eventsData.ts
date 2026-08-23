@@ -55,6 +55,15 @@ export const eventsData = {
       status: "upcoming",
       year: "2026",
     },
+    {
+      id: "6a",
+      title: "Beyond The Frame",
+      description:
+        "Build Your First Embedded System & go from absolute beginner to flashing real C firmware on an STM32 Blue Pill in 2 action-packed days.",
+      href: "/beyond-the-frame",
+      status: "upcoming",
+      year: "2026",
+    }
   ],
 };
 

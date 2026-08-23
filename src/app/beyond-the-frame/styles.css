@@ -1,0 +1,73 @@
+.btf-container {
+  --board-void: #0A140F;
+  --board-panel: #101F17;
+  --board-panel-raised: #16281E;
+  --copper: #C77B3F;
+  --silkscreen: #EDE9DD;
+  --silkscreen-muted: #8C9A8F;
+  --scope-ch1: #F5C518;
+  --scope-ch2: #3EC9E0;
+  --alert: #FF6B4A;
+  
+  background-color: var(--board-void);
+  color: var(--silkscreen);
+  font-family: 'IBM Plex Sans', sans-serif;
+  min-height: 100vh;
+}
+
+.btf-container h1, .btf-container h2, .btf-container h3, .btf-container h4 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.btf-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.btf-panel {
+  background-color: var(--board-panel);
+  border: 2px solid rgba(199, 123, 63, 0.15); /* copper at 15% */
+  border-radius: 4px;
+}
+
+.btf-panel:hover {
+  background-color: var(--board-panel-raised);
+  border-color: rgba(199, 123, 63, 1);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+.btf-divider {
+  border-top: 2px solid rgba(199, 123, 63, 0.4);
+}
+
+.btf-cta-ch1 {
+  background-color: var(--scope-ch1);
+  color: var(--board-void);
+}
+.btf-cta-ch2 {
+  background-color: var(--scope-ch2);
+  color: var(--board-void);
+}
+
+/* Trace sweep */
+.scope-trace {
+  animation: sweep 10s linear infinite;
+}
+
+@keyframes sweep {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope-trace {
+    animation: none;
+  }
+}
