@@ -16,7 +16,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export default function EventsPage() {
-  const [activeTab, setActiveTab] = useState<'upcoming' | 'completed'>('completed');
+  const [activeTab, setActiveTab] = useState<'upcoming' | 'completed'>('upcoming');
 
   const displayedEvents = activeTab === 'upcoming' 
     ? [...eventsData.upcoming].reverse() 
